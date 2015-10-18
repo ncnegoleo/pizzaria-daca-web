@@ -11,7 +11,7 @@
     <name>pizzaria-daca-web</name>
 
     <!-- Eclipselink Repository -->
-    <repositories>
+    <repositories> 
         <repository>
             <id>oss.sonatype.org</id>
             <name>OSS Sonatype Staging</name>
