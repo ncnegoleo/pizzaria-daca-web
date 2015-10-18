@@ -24,7 +24,7 @@ public class TestDaos {
         simpleGetAllClientes(clienteService);
 
         /* 5 */
-        //simpleDeleteCliente(clienteService, cliente);
+        simpleDeleteCliente(clienteService, cliente);
         
         clienteService.closeConn();
     }
