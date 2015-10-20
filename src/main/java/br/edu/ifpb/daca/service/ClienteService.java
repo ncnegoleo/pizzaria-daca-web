@@ -4,7 +4,6 @@ import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
 import br.edu.ifpb.daca.entities.Endereco;
 import static br.edu.ifpb.daca.validation.ClienteValidation.*;
-import static br.edu.ifpb.daca.validation.msgs.ClienteExceptMsgs.*;
 import java.util.List;
 
 /**
@@ -50,9 +49,9 @@ public class ClienteService {
      * @param cliente .
      */
     public void save(Cliente cliente) {
-        valideNome(cliente, NOME_MSG_EXCEPT.getValor());
-        valideEndereco(cliente, ENDERECO_MSG_EXCEPT.getValor());
-        valideTelefone(cliente, TELEFONE_MSG_EXCEPT.getValor());
+        valideNome(cliente);
+        valideEndereco(cliente);
+        valideTelefone(cliente);
 
         clienteDao.save(cliente);
     }
@@ -64,10 +63,10 @@ public class ClienteService {
      * @return Cliente.
      */
     public Cliente update(Cliente cliente) {
-        valideId(cliente, ID_MSG_EXCEPT.getValor());
-        valideNome(cliente, NOME_MSG_EXCEPT.getValor());
-        valideEndereco(cliente, ENDERECO_MSG_EXCEPT.getValor());
-        valideTelefone(cliente, TELEFONE_MSG_EXCEPT.getValor());
+        valideId(cliente);
+        valideNome(cliente);
+        valideEndereco(cliente);
+        valideTelefone(cliente);
 
         return clienteDao.update(cliente);
     }
@@ -78,7 +77,7 @@ public class ClienteService {
      * @param cliente
      */
     public void delete(Cliente cliente) {
-        valideId(cliente, ID_MSG_EXCEPT.getValor());
+        valideId(cliente);
 
         clienteDao.delete(cliente);
     }
@@ -92,7 +91,7 @@ public class ClienteService {
     public Cliente getById(Long id) {
         Cliente aux = new Cliente();
         aux.setId(id);
-        valideId(aux, ID_MSG_EXCEPT.getValor());
+        valideId(aux);
 
         return clienteDao.getById(id);
     }
@@ -129,7 +128,7 @@ public class ClienteService {
     }
 
     /**
-     * Fecha a conex?o
+     * Fecha a conexão
      */
     public void closeConn() {
         clienteDao.close();

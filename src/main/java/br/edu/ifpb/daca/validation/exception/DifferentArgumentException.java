@@ -1,4 +1,4 @@
-package br.edu.ifpb.daca.validation;
+package br.edu.ifpb.daca.validation.exception;
 
 public class DifferentArgumentException extends RuntimeException {
 	

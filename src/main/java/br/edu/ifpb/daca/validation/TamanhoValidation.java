@@ -1,5 +1,6 @@
 package br.edu.ifpb.daca.validation;
 
+import br.edu.ifpb.daca.validation.exception.DifferentArgumentException;
 import br.edu.ifpb.daca.entities.Tamanho;
 
 public class TamanhoValidation {

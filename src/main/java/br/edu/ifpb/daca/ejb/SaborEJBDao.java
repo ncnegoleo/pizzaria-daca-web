@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class SaborEJBDao  extends GenericDAO<Sabor> {
     
-    @PersistenceContext(name = "remote_daca")
+    //@PersistenceContext(name = "remote_daca")
     EntityManager em;
 
     public SaborEJBDao() {
