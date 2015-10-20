@@ -3,7 +3,7 @@ package br.edu.ifpb.daca.test;
 import br.edu.ifpb.daca.dao.LancheDao;
 import br.edu.ifpb.daca.entities.Lanche;
 import br.edu.ifpb.daca.service.LancheService;
-import br.edu.ifpb.daca.validation.DifferentArgumentException;
+import br.edu.ifpb.daca.validation.exception.DifferentArgumentException;
 import static br.edu.ifpb.daca.validation.msgs.LancheExcepMsg.*;
 
 import org.junit.Before;
@@ -96,7 +96,7 @@ public class LancheServiceTest {
     }
 
     /**
-     * Teste que verifica se o id não é menor que 0 ao alterar
+     * Teste que verifica se o id não é menor que 1 ao alterar
      */
     @Test
     public void lancheAtualizadoIdMenorQue1() {

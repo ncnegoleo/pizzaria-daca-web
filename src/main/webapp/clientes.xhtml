@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <ui:define name="title">
+            Cliente list
+        </ui:define>
+        <ui:define name="content">
+            <p:messages />
+            <p:fieldset legend="Filtro">
+                <h:form id="formFiltro">
+                    <p:outputLabel for="nomeFiltro" value="Nome do Cliente " styleClass="globa-labels"/>
+                    <p:inputText id="nomeFiltro" value="" required="true"
+                                 style="width:20em" />
+
+                    <p:commandButton value="Filtrar" id="filtrarBotao"/>
+                    <p:commandButton id="limparBotao" value="Limpar"
+                                     update="formFiltro" process="@this">
+                        <p:resetInput target="formFiltro" />
+                    </p:commandButton>
+                </h:form>
+            </p:fieldset>
+            <p:fieldset legend="Resultado">
+                <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
+                             emptyMessage="Nenhum registro encontrado.">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{cliente.id}" />
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{cliente.nome}" />
+                    </p:column>
+
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{cliente.telefone}" />
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{cliente.email}" />
+                    </p:column>
+
+                    <p:column headerText="Edit">
+                        <p:link outcome="index.xhtml" value="Edit user">
+                            <f:param name="user" value="" />
+                        </p:link>
+                    </p:column>
+
+                    <p:column headerText="Delete">
+                        <p:link outcome="index.xhtml" value="Delete user">
+                            <f:param name="user" value="" />
+                        </p:link>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </ui:define>
+    </ui:composition>
+</html>

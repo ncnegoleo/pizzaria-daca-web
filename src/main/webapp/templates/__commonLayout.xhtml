@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title><ui:insert name="title">Página principal</ui:insert></title>
+        <style>
+            .ui-widget {
+                font-size: 0.95em;
+            }
+            .ui-inputfield {
+                margin: 0.4em;
+            }
+            .ui-fieldset {
+                    padding: 0.6em 0.5em;
+                    margin: 0.5em auto 0.5em 0.5em;
+            }
+            .ui-button {
+                margin: 0.4em;
+                font-size: 0.95em;
+            }
+            
+            .globa-labels {
+                font-weight: bold;
+                font-size: 1.1em !important;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <ui:debug hotkey="z" />
+
+        <div id="header">
+            <ui:insert name="header">
+                <p:panel style="width : 100%; text-align:center">
+                    <h:outputLabel value="Cabeçalho da Minha Aplicação" />
+                </p:panel>
+            </ui:insert>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content" />
+        </div>
+
+        <div id="footer">
+            <p:panel style="width : 100%; text-align:center">
+                <h:outputLabel value="Minha Aplicação - v1.0" />
+            </p:panel>
+        </div>
+
+    </h:body>
+</html>
