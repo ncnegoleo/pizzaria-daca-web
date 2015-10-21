@@ -127,6 +127,10 @@ public class ClienteService {
         return clienteDao.getAll();
     }
 
+    public List<Cliente> getByNome(String nome) {
+        return clienteDao.findClienteByNome(nome);
+    }
+    
     /**
      * Fecha a conexão
      */

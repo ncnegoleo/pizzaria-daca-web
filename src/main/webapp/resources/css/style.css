@@ -1,0 +1,37 @@
+
+
+.ui-widget {
+    font-size: 0.95em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ui-inputfield {
+    margin: 0.6em !important;
+    padding: 0.2em !important;;
+    height: 1.2em;
+}
+
+.ui-fieldset {
+    padding: 0.6em 0.5em;
+    margin: 0.5em auto 0.5em 0.5em;
+}
+.ui-button {
+    margin: 0.4em;
+    /* font-size: 0.95em; */
+    height: 1.8em;
+}
+
+.globa-labels {
+    font-weight: bold;
+    font-size: 1.1em !important;
+}
+.ui-datatable thead th {
+    padding: .2em .2em !important;
+}
+.ui-datatable tbody td {
+    padding: .2em .2em !important;
+}
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+    padding: 0.3em 0.5em !important;
+}
+

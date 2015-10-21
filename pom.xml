@@ -36,6 +36,13 @@
             <version>5.3</version>  
         </dependency>  
         
+        <!-- Ominifaces -->
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>1.10</version>
+        </dependency>
+        
         <!-- Eclipselink Impl -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>

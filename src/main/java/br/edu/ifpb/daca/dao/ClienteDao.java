@@ -90,4 +90,23 @@ public class ClienteDao extends DAO implements Persistible<Cliente, Long> {
         }
         return resultado;
     }
+
+    public List<Cliente> findClienteByNome(String nome) {
+        EntityManager em = getEntityManager();
+        List<Cliente> resultado = null;
+        if (nome == null) {
+            nome = "";
+        }
+        try {
+            TypedQuery<Cliente> query = em.createQuery(""
+                    + "SELECT c FROM Cliente_Entity c WHERE c.nome LIKE :nome", Cliente.class);
+            query.setParameter("nome", "%" + nome + "%");
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            pe.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return resultado;
+    }
 }

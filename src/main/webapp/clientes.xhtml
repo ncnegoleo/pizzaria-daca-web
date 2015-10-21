@@ -11,20 +11,25 @@
             Cliente list
         </ui:define>
         <ui:define name="content">
+
             <p:messages />
+
+            <p:link outcome="cliente_edit" value="Add user" />
             <p:fieldset legend="Filtro">
                 <h:form id="formFiltro">
                     <p:outputLabel for="nomeFiltro" value="Nome do Cliente " styleClass="globa-labels"/>
-                    <p:inputText id="nomeFiltro" value="" required="true"
-                                 style="width:20em" />
+                    <p:inputText id="nomeFiltro" value="#{clienteBean.nomeFiltro}"
+                                 maxlength="100"/>
 
-                    <p:commandButton value="Filtrar" id="filtrarBotao"/>
-                    <p:commandButton id="limparBotao" value="Limpar"
+                    <p:commandButton value="Filtrar" id="filtrarBotao" 
+                                     action="#{clienteBean.filtrar()}" update=":idTabela"/>
+                    <p:commandButton id="limparBotao" value="Limpar" action="#{clienteBean.limparFiltro}"
                                      update="formFiltro" process="@this">
                         <p:resetInput target="formFiltro" />
                     </p:commandButton>
                 </h:form>
             </p:fieldset>
+
             <p:fieldset legend="Resultado">
                 <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
                              emptyMessage="Nenhum registro encontrado.">
@@ -45,14 +50,14 @@
                     </p:column>
 
                     <p:column headerText="Edit">
-                        <p:link outcome="index.xhtml" value="Edit user">
-                            <f:param name="user" value="" />
+                        <p:link outcome="cliente_edit.xhtml" value="Edit user">
+                            <f:param name="cliente" value="#{cliente.id}" />
                         </p:link>
                     </p:column>
 
                     <p:column headerText="Delete">
                         <p:link outcome="index.xhtml" value="Delete user">
-                            <f:param name="user" value="" />
+                            <f:param name="cliente" value="" />
                         </p:link>
                     </p:column>
                 </p:dataTable>

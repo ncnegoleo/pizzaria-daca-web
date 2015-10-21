@@ -1,21 +1,19 @@
 package br.edu.ifpb.daca;
 
+import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
-import br.edu.ifpb.daca.entities.Endereco;
 import br.edu.ifpb.daca.service.ClienteService;
+import java.util.List;
 
 public class TestPedido {
     
     public static void main(String[] args) {
         
-        ClienteService cs = new ClienteService();
+        ClienteService cs = new ClienteService(new ClienteDao());
         
-        Cliente cliente = new Cliente();
-        cliente.setNome("leo");
-        Endereco endereco = new Endereco();
-        cliente.setEndereco(endereco);
-        cliente.setTelefone("(87)9195-5410");
+        List<Cliente> clientes = cs.getByNome("Jo");
         
-        cs.save(cliente);
+        clientes.forEach(c -> System.out.println(c));
+        
     }
 }

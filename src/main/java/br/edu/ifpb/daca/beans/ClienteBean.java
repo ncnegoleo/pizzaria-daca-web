@@ -11,18 +11,36 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 @ManagedBean
 public class ClienteBean {
-    
+
     List<Cliente> clientes;
-    
+
     ClienteService clienteService = new ClienteService(new ClienteDao());
-    
+
+    String nomeFiltro;
+
     @PostConstruct
     public void init() {
-        clientes = clienteService.getAll();
+        filtrar();
     }
 
     public List<Cliente> getClientes() {
         return clientes;
     }
-    
+
+    public String getNomeFiltro() {
+        return nomeFiltro;
+    }
+
+    public void setNomeFiltro(String nomeFiltro) {
+        this.nomeFiltro = nomeFiltro;
+    }
+
+    public void filtrar() {
+        clientes = clienteService.getByNome(nomeFiltro);
+    }
+
+    public void limparFiltro() {
+        nomeFiltro = null;
+    }
+
 }

@@ -4,7 +4,8 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-    <persistence-unit name="daca" transaction-type="RESOURCE_LOCAL">
+        <!--    
+        <persistence-unit name="daca" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         
         <class>br.edu.ifpb.daca.entities.Sabor</class>
@@ -26,11 +27,12 @@
             <property name="javax.persistence.jdbc.password" value="postgres" />
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="javax.persistence.schema-generation.database.action"
-                      value="none" />
+                      value="create-or-extend-tables" />
         </properties>
     </persistence-unit>
+    -->
     
-    <persistence-unit name="remote_daca" transaction-type="JTA">
+    <persistence-unit name="daca" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/daca_pizzaria</jta-data-source>
 		
@@ -47,7 +49,7 @@
         <class>br.edu.ifpb.daca.entities.PedidoDelivery</class>
 
         <properties>
-            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
             <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
