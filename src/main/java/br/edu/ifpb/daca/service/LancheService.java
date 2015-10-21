@@ -2,58 +2,45 @@ package br.edu.ifpb.daca.service;
 
 import br.edu.ifpb.daca.dao.LancheDao;
 import br.edu.ifpb.daca.entities.Lanche;
-import static br.edu.ifpb.daca.validation.LancheValidation.*;
-import static br.edu.ifpb.daca.validation.msgs.LancheExcepMsg.*;
 import java.util.List;
 
 public class LancheService {
 
-	protected LancheDao lancheDao;
+    protected LancheDao lancheDao;
 
-	public LancheService() {
-	}
+    public LancheService() {
+    }
 
-	public LancheDao getLancheDao() {
-		return lancheDao;
-	}
+    public LancheDao getLancheDao() {
+        return lancheDao;
+    }
 
-	public void setLancheDao(LancheDao lancheDao) {
-		this.lancheDao = lancheDao;
-	}
+    public void setLancheDao(LancheDao lancheDao) {
+        this.lancheDao = lancheDao;
+    }
 
-	public void save(Lanche lanche) {
-		valideDescricao(lanche, DESCRICAO_MSG_EXCEP.getValor());
-		valideValorUnitario(lanche, VALOR_UNIT_MSG_EXCEP.getValor());
+    public void save(Lanche lanche) {
+        lancheDao.save(lanche);
+    }
 
-		lancheDao.save(lanche);
-	}
+    public Lanche update(Lanche lanche) {
+        return lancheDao.update(lanche);
+    }
 
-	public Lanche update(Lanche lanche) {
-		valideId(lanche, ID_MSG_EXCEPT.getValor());
-		valideDescricao(lanche, DESCRICAO_MSG_EXCEP.getValor());
-		valideValorUnitario(lanche, VALOR_UNIT_MSG_EXCEP.getValor());
+    public void delete(Lanche lanche) {
+        lancheDao.delete(lanche);
+    }
 
-		return lancheDao.update(lanche);
-	}
+    public Lanche getById(Long id) {
 
-	public void delete(Lanche lanche) {
-		valideId(lanche, ID_MSG_EXCEPT.getValor());
-		lancheDao.delete(lanche);
-	}
+        return lancheDao.getById(id);
+    }
 
-	public Lanche getById(Long id) {
-		Lanche aux = new Lanche();
-		aux.setId(id);
-		valideId(aux, ID_MSG_EXCEPT.getValor());
+    public List<Lanche> getAll() {
+        return lancheDao.getAll();
+    }
 
-		return lancheDao.getById(id);
-	}
-
-	public List<Lanche> getAll() {
-		return lancheDao.getAll();
-	}
-	
-	public void closeConn() {
-		lancheDao.close();
-	}
+    public void closeConn() {
+        lancheDao.close();
+    }
 }

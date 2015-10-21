@@ -20,9 +20,9 @@
         </ui:define>
 
         <ui:define name="content">
-            <p:messages autoUpdate="true" />
+            <p:messages autoUpdate="true" showDetail="true"/>
 
-            <h:form id="formEdicao">
+            <h:form id="formEdicao" prependId="false">
 
                 <p:panelGrid columns="2">
                     <f:facet name="header">Cliente</f:facet>
@@ -33,15 +33,16 @@
 
                     <p:outputLabel for="nome" value="Nome:" />
                     <p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
-                                 label="First name" />
+                                 label="Nome" required="true" />
 
                     <p:outputLabel for="telefone" value="Telefone:" />
                     <p:inputText id="telefone" value="#{clienteEdit.cliente.telefone}"
-                                 label="Last name" />
+                                 label="Telefone" required="true">
+                        <f:validator validatorId="telefoneValidator"/>
+                    </p:inputText>
 
                     <p:outputLabel for="email" value="Email: " />
-                    <p:inputText id="email" value="#{clienteEdit.cliente.email}"
-                                 required="true" />
+                    <p:inputText id="email" value="#{clienteEdit.cliente.email}" label="Email"/>
 
                     <f:facet name="footer">
                         <p:commandButton id="btnSubmit" action="#{clienteEdit.saveCliente}" value="Submit"

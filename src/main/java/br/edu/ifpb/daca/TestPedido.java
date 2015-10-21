@@ -1,19 +1,10 @@
 package br.edu.ifpb.daca;
 
-import br.edu.ifpb.daca.dao.ClienteDao;
-import br.edu.ifpb.daca.entities.Cliente;
-import br.edu.ifpb.daca.service.ClienteService;
-import java.util.List;
-
 public class TestPedido {
     
     public static void main(String[] args) {
-        
-        ClienteService cs = new ClienteService(new ClienteDao());
-        
-        List<Cliente> clientes = cs.getByNome("Jo");
-        
-        clientes.forEach(c -> System.out.println(c));
-        
+
+        String telefoneRegex = "(\\([0-9]{2}\\)){0,1}[0-9]{4,5}-[0-9]{4}";
+        System.out.println("99195-5410".matches(telefoneRegex));
     }
 }

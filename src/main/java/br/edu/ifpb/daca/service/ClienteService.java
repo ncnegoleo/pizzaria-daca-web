@@ -3,7 +3,6 @@ package br.edu.ifpb.daca.service;
 import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
 import br.edu.ifpb.daca.entities.Endereco;
-import static br.edu.ifpb.daca.validation.ClienteValidation.*;
 import java.util.List;
 
 /**
@@ -49,10 +48,6 @@ public class ClienteService {
      * @param cliente .
      */
     public void save(Cliente cliente) {
-        valideNome(cliente);
-        valideEndereco(cliente);
-        valideTelefone(cliente);
-
         clienteDao.save(cliente);
     }
 
@@ -63,11 +58,6 @@ public class ClienteService {
      * @return Cliente.
      */
     public Cliente update(Cliente cliente) {
-        valideId(cliente);
-        valideNome(cliente);
-        valideEndereco(cliente);
-        valideTelefone(cliente);
-
         return clienteDao.update(cliente);
     }
 
@@ -77,8 +67,6 @@ public class ClienteService {
      * @param cliente
      */
     public void delete(Cliente cliente) {
-        valideId(cliente);
-
         clienteDao.delete(cliente);
     }
 
@@ -89,10 +77,6 @@ public class ClienteService {
      * @return Cliente.
      */
     public Cliente getById(Long id) {
-        Cliente aux = new Cliente();
-        aux.setId(id);
-        valideId(aux);
-
         return clienteDao.getById(id);
     }
 
@@ -130,7 +114,7 @@ public class ClienteService {
     public List<Cliente> getByNome(String nome) {
         return clienteDao.findClienteByNome(nome);
     }
-    
+
     /**
      * Fecha a conexão
      */
