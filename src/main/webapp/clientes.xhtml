@@ -33,7 +33,7 @@
             <p:fieldset legend="Resultado">
                 <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
                              emptyMessage="Nenhum registro encontrado.">
-                    <p:column headerText="ID">
+                    <p:column headerText="ID" width="30">
                         <h:outputText value="#{cliente.id}" />
                     </p:column>
 
@@ -49,16 +49,14 @@
                         <h:outputText value="#{cliente.email}" />
                     </p:column>
 
-                    <p:column headerText="Edit">
-                        <p:link outcome="cliente_edit.xhtml" value="Edit user">
+                    <p:column headerText="Gerenciar" style="width: 9.5em" >
+                        <p:button icon="ui-icon-pencil" outcome="cliente_edit.xhtml" alt="Editar" title="Editar">
                             <f:param name="cliente" value="#{cliente.id}" />
-                        </p:link>
-                    </p:column>
-
-                    <p:column headerText="Delete">
-                        <p:link outcome="index.xhtml" value="Delete user">
+                        </p:button>
+                        <p:button icon="ui-icon-trash" outcome="index.xhtml" alt="Deletar" title="Deletar">
                             <f:param name="cliente" value="" />
-                        </p:link>
+                        </p:button>
+                        <p:button icon="ui-icon-search" alt="Detalhes" title="Detalhes"/>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>

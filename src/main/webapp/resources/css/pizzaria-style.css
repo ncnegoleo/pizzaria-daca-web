@@ -5,6 +5,10 @@
     box-shadow: none;
 }
 
+ui-panelgrid-header {
+    background: white !important;
+}
+
 .ui-button {
     background: #d2d2d2 !important;
     color: #1d1d1d !important;

@@ -13,11 +13,12 @@ public class ClienteEdit {
 
     private Cliente cliente;
     // Ver como implantar atravez do service de maneira na qual as validações se encaixem
-    private ClienteDao clienteDao = new ClienteDao(); 
+    private final ClienteDao clienteDao = new ClienteDao();
 
     public void preRenderView() {
         if (cliente == null) {
             cliente = new Cliente();
+            cliente.setTelefone("");
         }
     }
 
@@ -45,4 +46,5 @@ public class ClienteEdit {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
 }
