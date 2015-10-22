@@ -17,10 +17,9 @@
             <p:link outcome="cliente_edit" value="Add user" />
             <p:fieldset legend="Filtro">
                 <h:form id="formFiltro">
-                    <p:outputLabel for="nomeFiltro" value="Nome do Cliente " styleClass="globa-labels"/>
+                    <p:outputLabel for="nomeFiltro" value="Nome do Cliente " style="margin: 0px 0.6em"/>
                     <p:inputText id="nomeFiltro" value="#{clienteBean.nomeFiltro}"
-                                 maxlength="100"/>
-
+                                 maxlength="100" style="width: 90%; max-width: 40em"/>
                     <p:commandButton value="Filtrar" id="filtrarBotao" 
                                      action="#{clienteBean.filtrar()}" update=":idTabela"/>
                     <p:commandButton id="limparBotao" value="Limpar" action="#{clienteBean.limparFiltro}"
@@ -32,7 +31,9 @@
 
             <p:fieldset legend="Resultado">
                 <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
-                             emptyMessage="Nenhum registro encontrado.">
+                             emptyMessage="Nenhum registro encontrado." reflow="true"
+                             rows="8" paginator="true" paginatorPosition="bottom"
+                             styleClass="ui-table-columntoggle">
                     <p:column headerText="ID" width="30">
                         <h:outputText value="#{cliente.id}" />
                     </p:column>
@@ -49,7 +50,8 @@
                         <h:outputText value="#{cliente.email}" />
                     </p:column>
 
-                    <p:column headerText="Gerenciar" style="width: 9.5em" >
+                    <p:column headerText="Gerenciar" width="120">
+                        <center>
                         <p:button icon="ui-icon-pencil" outcome="cliente_edit.xhtml" alt="Editar" title="Editar">
                             <f:param name="cliente" value="#{cliente.id}" />
                         </p:button>
@@ -57,6 +59,7 @@
                             <f:param name="cliente" value="" />
                         </p:button>
                         <p:button icon="ui-icon-search" alt="Detalhes" title="Detalhes"/>
+                        </center>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
