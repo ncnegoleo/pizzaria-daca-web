@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -8,19 +8,17 @@
 
     <h:head>
         <title><ui:insert name="title">Página principal</ui:insert></title>
-<!--        <h:outputStylesheet library="css" name="style.css"/>-->
         <h:outputStylesheet library="css" name="pizzaria-style.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </h:head>
 
     <h:body>
-
         <ui:debug hotkey="z" />
 
         <div id="header">
             <ui:insert name="header">
-                <p:panel style="width : 100%; text-align:center">
-                    <h:outputLabel value="Cabeçalho da Minha Aplicação" />
+                <p:panel styleClass="header-panel" >
+                    <h1>Pizzaria Daca</h1>
                 </p:panel>
             </ui:insert>
         </div>

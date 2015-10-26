@@ -32,12 +32,23 @@
         
         <jta-data-source>jdbc/daca_pizzaria</jta-data-source>
         
-
+        <class>br.edu.ifpb.daca.entities.Sabor</class>
+        <class>br.edu.ifpb.daca.entities.Tamanho</class>
+        <class>br.edu.ifpb.daca.entities.Lanche</class>
+        <class>br.edu.ifpb.daca.entities.Pizza</class>
+        <class>br.edu.ifpb.daca.entities.Pedido</class>
+        <class>br.edu.ifpb.daca.entities.ItensPedido</class>
+        <class>br.edu.ifpb.daca.entities.Mesa</class>
+        <class>br.edu.ifpb.daca.entities.PedidoLocal</class>
+        <class>br.edu.ifpb.daca.entities.Cliente</class>
+        <class>br.edu.ifpb.daca.entities.Endereco</class>
+        <class>br.edu.ifpb.daca.entities.PedidoDelivery</class>
+        <class>br.edu.ifpb.daca.entities.Usuario</class>
         
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
         <properties>
-            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
