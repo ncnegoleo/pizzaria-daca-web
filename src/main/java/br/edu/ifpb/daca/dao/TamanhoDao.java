@@ -1,9 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Tamanho;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -12,83 +12,71 @@ import javax.persistence.TypedQuery;
  *
  * @see Tamanho;
  */
-public class TamanhoDao extends DAO implements Persistible<Tamanho, Long>{
+public class TamanhoDao extends DAO implements Persistible<Tamanho, Long> {
 
-    public void save(Tamanho tamanho) {
-         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
+    @Override
+    public void save(Tamanho tamanho) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
         try {
             em.persist(tamanho);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar o tamanho", pe);
         }
     }
 
-    public Tamanho update(Tamanho tamanho) {
-          EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
+    @Override
+    public Tamanho update(Tamanho tamanho) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
         Tamanho resultado = tamanho;
         try {
             resultado = em.merge(tamanho);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar o tamanho", pe);
         }
         return resultado;
     }
 
-    public void delete(Tamanho tamanho) {
-          EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
+    @Override
+    public void delete(Tamanho tamanho) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
         try {
             tamanho = em.merge(tamanho);
             em.remove(tamanho);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "deletar o tamanho", pe);
         }
     }
 
-    public Tamanho getById(Long id) {
-         EntityManager em = getEntityManager();
+    @Override
+    public Tamanho getById(Long id) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
         Tamanho resultado = null;
         try {
             resultado = em.find(Tamanho.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar o tamanho", pe);
         }
 
         return resultado;
     }
 
-    public List<Tamanho> getAll() {
-                EntityManager em = getEntityManager();
+    @Override
+    public List<Tamanho> getAll() throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
         List<Tamanho> resultado = null;
         try {
             TypedQuery<Tamanho> query = em.createQuery(
                     "SELECT t FROM Tamanho_Entity t", Tamanho.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os tamanhos", pe);
         }
         return resultado;
     }
-    
+
 }

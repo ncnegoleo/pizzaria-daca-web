@@ -1,5 +1,6 @@
 package br.edu.ifpb.daca.dao;
 
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 
 /**
@@ -13,13 +14,13 @@ import java.util.List;
  */
 public interface Persistible<E, Pk> {
 
-	public void save(E e);
+	public void save(E e) throws DacaPersistenceException;
 
-	public E update(E e);
+	public E update(E e) throws DacaPersistenceException;
 
-	public void delete(E e);
+	public void delete(E e) throws DacaPersistenceException;
 
-	public E getById(Pk pk);
+	public E getById(Pk pk) throws DacaPersistenceException;
 
-	public List<E> getAll();
+	public List<E> getAll() throws DacaPersistenceException;
 }

@@ -12,9 +12,10 @@
         </ui:define>
         <ui:define name="content">
 
-            <p:messages />
+            <p:messages closable="true" showDetail="true" id="messages"/>
 
             <p:link outcome="cliente_edit" value="Add user" />
+            
             <p:fieldset legend="Filtro">
                 <h:form id="formFiltro">
                     <p:outputLabel for="nomeFiltro" value="Nome do Cliente " style="margin: 0px 0.6em"/>

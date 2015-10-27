@@ -1,9 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Mesa;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -14,69 +14,58 @@ import javax.persistence.TypedQuery;
  */
 public class MesaDao extends DAO implements Persistible<Mesa, Long> {
 
-    public void save(Mesa mesa) {
+    @Override
+    public void save(Mesa mesa) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             em.persist(mesa);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar a mesa", pe);
         }
     }
 
-    public Mesa update(Mesa mesa) {
+    @Override
+    public Mesa update(Mesa mesa) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         Mesa resultado = mesa;
         try {
             resultado = em.merge(mesa);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+           throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar a mesa", pe);
         }
         return resultado;
     }
 
-    public void delete(Mesa mesa) {
+    @Override
+    public void delete(Mesa mesa) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             mesa = em.merge(mesa);
             em.remove(mesa);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "deletar a mesa", pe);
         }
     }
 
-    public Mesa getById(Long id) {
+    @Override
+    public Mesa getById(Long id) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         Mesa resultado = null;
         try {
             resultado = em.find(Mesa.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "reculperar a mesa", pe);
         }
 
         return resultado;
     }
 
-    public List<Mesa> getAll() {
+    @Override
+    public List<Mesa> getAll() throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         List<Mesa> resultado = null;
         try {
@@ -84,9 +73,8 @@ public class MesaDao extends DAO implements Persistible<Mesa, Long> {
                     "SELECT m FROM Mesa_Entity m", Mesa.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar as mesas", pe);
         }
         return resultado;
     }

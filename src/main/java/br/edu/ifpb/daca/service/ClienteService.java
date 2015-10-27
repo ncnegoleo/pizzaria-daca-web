@@ -3,52 +3,40 @@ package br.edu.ifpb.daca.service;
 import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
 import br.edu.ifpb.daca.entities.Endereco;
+import br.edu.ifpb.daca.util.annotations.TransactionalCDI;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
+import br.edu.ifpb.daca.validation.DacaServiceException;
+import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Classe que controla todas as funções de responsabilidade a entidade
- * <b>Cliente<b>.
+ * <b>Cliente</b>.
  *
  * @see Cliente
  * @see Endereco
  */
-public class ClienteService {
+public class ClienteService implements Serializable {
 
-    ClienteDao clienteDao;
-
-    public ClienteService() {
-
-    }
-
-    public ClienteService(ClienteDao clienteDao) {
-        this.clienteDao = clienteDao;
-    }
-
-    /**
-     * Recupera o DAO do Cliente
-     *
-     * @return ClienteDao.
-     */
-    public ClienteDao getClienteDao() {
-        return clienteDao;
-    }
-
-    /**
-     * Define DAO do Cliente a ser usado
-     *
-     * @param clienteDao .
-     */
-    public void setClienteDao(ClienteDao clienteDao) {
-        this.clienteDao = clienteDao;
-    }
+    private static final long serialVersionUID = 1L;
+    
+    @Inject
+    private ClienteDao clienteDao;
 
     /**
      * Salva um novo cliente.
      *
-     * @param cliente .
+     * @param cliente.
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public void save(Cliente cliente) {
-        clienteDao.save(cliente);
+    @TransactionalCDI
+    public void save(Cliente cliente) throws DacaServiceException {
+        try {
+            clienteDao.save(cliente);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -56,18 +44,30 @@ public class ClienteService {
      *
      * @param cliente .
      * @return Cliente.
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public Cliente update(Cliente cliente) {
-        return clienteDao.update(cliente);
+    @TransactionalCDI
+    public Cliente update(Cliente cliente) throws DacaServiceException {
+        try {
+            return clienteDao.update(cliente);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
 
     /**
      * Exclui um cliente.
      *
      * @param cliente
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public void delete(Cliente cliente) {
-        clienteDao.delete(cliente);
+    @TransactionalCDI
+    public void delete(Cliente cliente) throws DacaServiceException {
+        try {
+            clienteDao.delete(cliente);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -75,50 +75,42 @@ public class ClienteService {
      *
      * @param id
      * @return Cliente.
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public Cliente getById(Long id) {
-        return clienteDao.getById(id);
-    }
-
-    /**
-     * Atualiza o endereço de um cliente.
-     *
-     * @param cliente
-     * @param endereco
-     * @return Endereco;
-     */
-    public Endereco updateEndereco(Cliente cliente, Endereco endereco) {
-        cliente.setEndereco(endereco);
-        return update(cliente).getEndereco();
-    }
-
-    /**
-     * Recupera o endereço de um cliente.
-     *
-     * @param cliente
-     * @return Endereco;
-     */
-    public Endereco getEndereco(Cliente cliente) {
-        return getById(cliente.getId()).getEndereco();
+    public Cliente getById(Long id) throws DacaServiceException {
+        try {
+            return clienteDao.getById(id);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
 
     /**
      * Recupera todos os clientes cadastrados.
      *
-     * @return List<Cliente>.
+     * @return List of Cliente
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public List<Cliente> getAll() {
-        return clienteDao.getAll();
+    public List<Cliente> getAll() throws DacaServiceException {
+        try {
+            return clienteDao.getAll();
+        } catch (DacaPersistenceException ex) {
+             throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
-
-    public List<Cliente> getByNome(String nome) {
-        return clienteDao.findClienteByNome(nome);
-    }
-
+    
     /**
-     * Fecha a conexão
+     * Recupera os clinetes cadastrados pelo nome.
+     * 
+     * @param nome do cliente
+     * @return Lista de Cliente
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    public void closeConn() {
-        clienteDao.close();
+    public List<Cliente> findByNome(String nome) throws DacaServiceException {
+        try {
+            return clienteDao.findClienteByNome(nome);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
     }
 }

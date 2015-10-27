@@ -1,9 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Sabor;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -14,69 +14,58 @@ import javax.persistence.TypedQuery;
  */
 public class SaborDao extends DAO implements Persistible<Sabor, Long> {
 
-    public void save(Sabor sabor) {
+    @Override
+    public void save(Sabor sabor) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             em.persist(sabor);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar o sabor", pe);
         }
     }
 
-    public Sabor update(Sabor sabor) {
+    @Override
+    public Sabor update(Sabor sabor) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         Sabor resultado = sabor;
         try {
             resultado = em.merge(sabor);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+           throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar o sabor", pe);
         }
         return resultado;
     }
 
-    public void delete(Sabor sabor) {
+    @Override
+    public void delete(Sabor sabor) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             sabor = em.merge(sabor);
             em.remove(sabor);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "deletar o sabor", pe);
         }
     }
 
-    public Sabor getById(Long id) {
+    @Override
+    public Sabor getById(Long id) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         Sabor resultado = null;
         try {
             resultado = em.find(Sabor.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+           throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar o sabor", pe);
         }
 
         return resultado;
     }
 
-    public List<Sabor> getAll() {
+    @Override
+    public List<Sabor> getAll() throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         List<Sabor> resultado = null;
         try {
@@ -84,9 +73,8 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
                     "SELECT s FROM Sabor_Entity s", Sabor.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+           throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os sabores", pe);
         }
         return resultado;
     }

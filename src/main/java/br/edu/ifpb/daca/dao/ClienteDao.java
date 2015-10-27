@@ -1,9 +1,10 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Cliente;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -12,71 +13,63 @@ import javax.persistence.TypedQuery;
  *
  * @see Cliente;
  */
-public class ClienteDao extends DAO implements Persistible<Cliente, Long> {
+public class ClienteDao extends DAO implements Persistible<Cliente, Long>,
+        Serializable {
 
-    public void save(Cliente cliente) {
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public void save(Cliente cliente) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             em.persist(cliente);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar o cliente", pe);
         }
     }
 
-    public Cliente update(Cliente cliente) {
+    @Override
+    public Cliente update(Cliente cliente) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         Cliente resultado = cliente;
         try {
             resultado = em.merge(cliente);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar o cliente", pe);
         }
         return resultado;
     }
 
-    public void delete(Cliente cliente) {
+    @Override
+    public void delete(Cliente cliente) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             cliente = em.merge(cliente);
             em.remove(cliente);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "deletar o cliente", pe);
         }
     }
 
-    public Cliente getById(Long id) {
+    @Override
+    public Cliente getById(Long id) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         Cliente resultado = null;
         try {
             resultado = em.find(Cliente.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar  o cliente", pe);
         }
 
         return resultado;
     }
 
-    public List<Cliente> getAll() {
+    @Override
+    public List<Cliente> getAll() throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         List<Cliente> resultado = null;
         try {
@@ -84,14 +77,14 @@ public class ClienteDao extends DAO implements Persistible<Cliente, Long> {
                     "SELECT c FROM Cliente_Entity c", Cliente.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os clientes", pe);
         }
         return resultado;
     }
 
-    public List<Cliente> findClienteByNome(String nome) {
+    public List<Cliente> findClienteByNome(String nome)
+            throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         List<Cliente> resultado = null;
         if (nome == null) {
@@ -99,13 +92,13 @@ public class ClienteDao extends DAO implements Persistible<Cliente, Long> {
         }
         try {
             TypedQuery<Cliente> query = em.createQuery(""
-                    + "SELECT c FROM Cliente_Entity c WHERE c.nome LIKE :nome", Cliente.class);
+                    + "SELECT c FROM Cliente_Entity c WHERE c.nome LIKE "
+                    + ":nome", Cliente.class);
             query.setParameter("nome", "%" + nome + "%");
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os clientes", pe);
         }
         return resultado;
     }

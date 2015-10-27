@@ -1,26 +1,35 @@
 package br.edu.ifpb.daca.beans;
 
-import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
 import br.edu.ifpb.daca.service.ClienteService;
-import br.edu.ifpb.daca.util.Messages;
-import javax.faces.bean.ManagedBean;
+import br.edu.ifpb.daca.validation.DacaServiceException;
+import java.io.Serializable;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+@Named
 @ViewScoped
-@ManagedBean
-public class ClienteDelete {
+public class ClienteDelete extends AbstractBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     Cliente cliente;
-    ClienteService clienteService = new ClienteService(new ClienteDao());
-    
+
+    @Inject
+    private ClienteService clienteService;
+
     public String deleteCliente() {
-        clienteService.delete(cliente);
-        Messages.addFlashMessage("Cliente '" + cliente.getNome()+ "' deleted");
-        
+        try {
+            clienteService.delete(cliente);
+            successMessageReport("Cliente removido com sucesso!");
+        } catch (DacaServiceException ex) {
+            errorMessageReport(ex.getMessage());
+        }
+
         return "clientes.xhtml?faces-redirect=true";
     }
-    
+
     public String cancel() {
         return "clientes.xhtml?faces-redirect=true";
     }

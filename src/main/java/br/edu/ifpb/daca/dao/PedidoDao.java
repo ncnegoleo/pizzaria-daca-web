@@ -1,9 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Pedido;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -14,70 +14,59 @@ import javax.persistence.TypedQuery;
  */
 public class PedidoDao extends DAO implements Persistible<Pedido, Long> {
 
-    public void save(Pedido pedido) {
+    @Override
+    public void save(Pedido pedido) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             em.persist(pedido);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar o pedido", pe);
         }
     }
 
-    public Pedido update(Pedido pedido) {
+    @Override
+    public Pedido update(Pedido pedido) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         Pedido resultado = pedido;
         try {
             resultado = em.merge(pedido);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar o pedido", pe);
         }
 
         return resultado;
     }
 
-    public void delete(Pedido pedido) {
+    @Override
+    public void delete(Pedido pedido) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             pedido = em.merge(pedido);
             em.remove(pedido);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "delete o pedido", pe);
         }
     }
 
-    public Pedido getById(Long id) {
+    @Override
+    public Pedido getById(Long id) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         Pedido resultado = null;
         try {
             resultado = em.find(Pedido.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar o pedido", pe);
         }
 
         return resultado;
     }
 
-    public List<Pedido> getAll() {
+    @Override
+    public List<Pedido> getAll() throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         List<Pedido> resultado = null;
         try {
@@ -85,9 +74,8 @@ public class PedidoDao extends DAO implements Persistible<Pedido, Long> {
                     "SELECT p FROM Pedido_Entity p", Pedido.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os pedidos", pe);
         }
         return resultado;
     }

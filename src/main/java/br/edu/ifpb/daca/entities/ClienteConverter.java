@@ -1,37 +1,49 @@
 package br.edu.ifpb.daca.entities;
 
-import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.service.ClienteService;
-import javax.faces.bean.ManagedBean;
+import br.edu.ifpb.daca.validation.DacaServiceException;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean
+@Named
+@RequestScoped
 public class ClienteConverter implements Converter {
 
-    ClienteService clienteService = new ClienteService(new ClienteDao());
-    
+    @Inject
+    ClienteService clienteService;
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if(value == null || value.trim().isEmpty()) {
+        if (value == null || value.trim().isEmpty()) {
             return null;
         }
         long id = Long.parseLong(value);
-        
-        return clienteService.getById(id);
+
+        try {
+            return clienteService.getById(id);
+        } catch (DacaServiceException ex) {
+            String msgErroStr = String.format(
+                    "Erro de conversão! Não foi possível realizar a conversão da string '%s' para o tipo esperado.",
+                    value);
+            FacesMessage msgErro = new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErroStr, msgErroStr);
+            throw new ConverterException(msgErro);
+        }
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value == null) {
-                    return null;
-            }
-            Long id = ((Cliente) value).getId();
-            
-            return (id != null) ? id.toString() : null;
+            return null;
+        }
+        Long id = ((Cliente) value).getId();
+
+        return (id != null) ? id.toString() : null;
     }
 
-
-    
 }

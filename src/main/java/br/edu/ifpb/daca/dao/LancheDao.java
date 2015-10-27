@@ -1,9 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
 import br.edu.ifpb.daca.entities.Lanche;
+import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -14,81 +14,71 @@ import javax.persistence.TypedQuery;
  */
 public class LancheDao extends DAO implements Persistible<Lanche, Long> {
 
-    public void save(Lanche lanche) {
+    @Override
+    public void save(Lanche lanche) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             em.persist(lanche);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "salvar o lanche", pe);
         }
     }
 
-    public Lanche update(Lanche lanche) {
+    @Override
+    public Lanche update(Lanche lanche) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         Lanche resultado = lanche;
         try {
             resultado = em.merge(lanche);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "atualizar o lanche", pe);
         }
         return resultado;
     }
 
-    public void delete(Lanche lanche) {
+    @Override
+    public void delete(Lanche lanche) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
         try {
             lanche = em.merge(lanche);
             em.remove(lanche);
-            transaction.commit();
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            transaction.rollback();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "deletar o lanche", pe);
         }
     }
 
-    public Lanche getById(Long id) {
+    @Override
+    public Lanche getById(Long id) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
         Lanche resultado = null;
         try {
             resultado = em.find(Lanche.class, id);
         } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar o lanche", pe);
         }
 
         return resultado;
     }
 
-    public List<Lanche> getAll() {
-        EntityManager em = getEntityManager();
-        List<Lanche> resultado = null;
-        try {
-            TypedQuery<Lanche> query = em.createQuery(
-                    "SELECT l FROM Lanche_Entity l", Lanche.class);
-            resultado = query.getResultList();
-        } catch (PersistenceException pe) {
-            pe.printStackTrace();
-        } finally {
-            em.close();
+    @Override
+    public List<Lanche> getAll() throws DacaPersistenceException {
+        {
+            EntityManager em = getEntityManager();
+            List<Lanche> resultado = null;
+            try {
+                TypedQuery<Lanche> query = em.createQuery(
+                        "SELECT l FROM Lanche_Entity l", Lanche.class);
+                resultado = query.getResultList();
+            } catch (PersistenceException pe) {
+                throw new DacaPersistenceException("Ocorreu algum problema em "
+                        + "recuperar os lanches", pe);
+            }
+            return resultado;
         }
-        return resultado;
-    }
 
+    }
 }
