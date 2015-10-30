@@ -16,7 +16,8 @@ public class ClienteBean extends AbstractBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    List<Cliente> clientes;
+    private List<Cliente> clientes;
+    private Cliente selectedCliente;
     
     @Inject
     private ClienteService clienteService;
@@ -40,6 +41,14 @@ public class ClienteBean extends AbstractBean implements Serializable {
         this.nomeFiltro = nomeFiltro;
     }
 
+    public Cliente getSelectedCliente() {
+        return selectedCliente;
+    }
+
+    public void setSelectedCliente(Cliente selectedCliente) {
+        this.selectedCliente = selectedCliente;
+    }
+    
     public void filtrar() {
         try {
             clientes = clienteService.findByNome(nomeFiltro);

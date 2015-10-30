@@ -46,9 +46,7 @@
 
                     <f:facet name="footer">
                         <p:commandButton id="btnSubmit" action="#{clienteEdit.saveCliente}" value="Submit"
-                                         icon="ui-icon-check" >
-                            <f:ajax execute="@form" render="@form"/>
-                        </p:commandButton>
+                                         icon="ui-icon-check" />
                         <p:commandButton id="btnCancel" action="clientes.xhtml?faces-redirect=true" value="Cancel"
                                          icon="ui-icon-cancel" immediate="true" />
                     </f:facet>

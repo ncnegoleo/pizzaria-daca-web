@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <f:metadata>
+            <o:viewParam name="cliente" value="#{clienteDetail.cliente}" 
+                         converter="#{clienteConverter}"/>
+        </f:metadata>
+
+        <ui:define name="title">
+            Cliente Details
+        </ui:define>
+
+        <ui:define name="content">
+            
+            <p:panelGrid style="width: 100% !important">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">CLIENTE</p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column><h:outputText value="Nome: " style="font-weight:bold" /></p:column>
+                    <p:column><h:outputText value="#{clienteDetail.cliente.nome}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Telefone: " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{clienteDetail.cliente.telefone}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Email: " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{clienteDetail.cliente.email}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Rua: " style="font-weight:bold" /></p:column>
+                    <p:column><h:outputText value="#{clienteDetail.cliente.endereco.rua}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Bairro: " style="font-weight:bold"/></p:column>
+                    <p:column><h:outputText value="#{clienteDetail.cliente.endereco.bairro}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <h:outputText value="Nº do Logradouro:  " style="font-weight:bold"/>  
+                    <h:outputText value="#{clienteDetail.cliente.endereco.numero}"/>
+                </p:row>
+                <p:row>
+                    <p:column><h:outputText value="CEP:  " style="font-weight:bold"/></p:column>
+                    <p:column><h:outputText value="#{clienteDetail.cliente.endereco.cep}"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column><h:outputText value="Comlemento:  " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{clienteDetail.cliente.endereco.complemento}"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2">
+                        <h:form>
+                            <p:commandButton id="btnCancel" action="#{clienteDetail.cancel}" value="Cancel"
+                                             icon="ui-icon-cancel" />
+                        </h:form>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </ui:define>
+    </ui:composition>
+</html>

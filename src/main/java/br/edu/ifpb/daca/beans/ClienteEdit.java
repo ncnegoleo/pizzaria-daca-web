@@ -35,14 +35,13 @@ public class ClienteEdit extends AbstractBean implements Serializable {
         }
     }
 
-    public String saveCliente() {
-        cliente.setEndereco(new Endereco()); // Provisório até arrumar a parte do endereço
-        conversation.end();
+    public String saveCliente() { 
         try {
             if (cliente.getId() != null) {
                 clienteService.update(cliente);
                 successMessageReport("Cliente atualizado com sucesso!");
             } else {
+                cliente.setEndereco(new Endereco()); // Provisório até arrumar a parte do endereço
                 clienteService.save(cliente);
                 successMessageReport("Cliente salvo com sucesso!");
             }
@@ -50,7 +49,8 @@ public class ClienteEdit extends AbstractBean implements Serializable {
             errorMessageReport(ex.getMessage());
             return null;
         }
-
+        
+        conversation.end();
         return "clientes.xhtml?faces-redirect=true";
     }
 

@@ -13,56 +13,83 @@
         <ui:define name="content">
 
             <p:messages closable="true" showDetail="true" id="messages"/>
-
-            <p:link outcome="cliente_edit" value="Add user" />
             
-            <p:fieldset legend="Filtro">
-                <h:form id="formFiltro">
-                    <p:outputLabel for="nomeFiltro" value="Nome do Cliente " style="margin: 0px 0.6em"/>
-                    <p:inputText id="nomeFiltro" value="#{clienteBean.nomeFiltro}"
-                                 maxlength="100" style="width: 90%; max-width: 40em"/>
-                    <p:commandButton value="Filtrar" id="filtrarBotao" 
-                                     action="#{clienteBean.filtrar()}" update=":idTabela"/>
-                    <p:commandButton id="limparBotao" value="Limpar" action="#{clienteBean.limparFiltro}"
-                                     update="formFiltro" process="@this">
-                        <p:resetInput target="formFiltro" />
-                    </p:commandButton>
+            <p:fieldset legend="Clientes">
+                <h:form id="formGerenciar">
+
+                    <p:button icon="ui-icon-trash" outcome="cliente_edit" alt="Novo" 
+                              title="Novo Cliente" value="Novo Cliente" styleClass="add-cliente-btn"/>
+                    
+                    <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
+                                 emptyMessage="Nenhum registro encontrado." reflow="true"
+                                 rows="8" paginator="true" paginatorPosition="bottom"
+                                 styleClass="ui-table-columntoggle">
+                        <p:column filterBy="#{cliente.id}" headerText="ID" width="60">
+                            <h:outputText value="#{cliente.id}" />
+                        </p:column>
+
+                        <p:column filterBy="#{cliente.nome}" headerText="Nome">
+                            <h:outputText value="#{cliente.nome}" />
+                        </p:column>
+
+                        <p:column filterBy="#{cliente.telefone}" headerText="Telefone">
+                            <h:outputText value="#{cliente.telefone}" />
+                        </p:column>
+
+                        <p:column filterBy="#{cliente.email}" headerText="Email">
+                            <h:outputText value="#{cliente.email}" />
+                        </p:column>
+
+                        <p:column headerText="Gerenciar" width="150">
+                            <center>
+
+                                <!-- Editar -->
+                                <p:button icon="ui-icon-pencil" outcome="cliente_edit.xhtml" alt="Editar" title="Editar">
+                                    <f:param name="cliente" value="#{cliente.id}" />
+                                </p:button>
+
+                                <!-- Deletar -->
+                                <p:button icon="ui-icon-trash" outcome="cliente_delete.xhtml" alt="Deletar" title="Deletar">
+                                    <f:param name="cliente" value="#{cliente.id}" />
+                                </p:button>
+
+                                <!-- Detalhar -->
+                                <p:commandButton styleClass="btn-detail-deskt" icon="ui-icon-search" update="formGerenciar:display" oncomplete="PF('detailDialog').show();" 
+                                                 alt="Detalhes" title="Detalhes">
+                                    <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.selectedCliente}"/>
+                                </p:commandButton>
+
+                                <p:button styleClass="btn-detail-moblie" icon="ui-icon-search" outcome="cliente_detail.xhtml" alt="Detalhes" title="Detalhes">
+                                    <f:param name="cliente" value="#{cliente.id}" />
+                                </p:button>
+
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dialog header="Cliente Detail" widgetVar="detailDialog" resizable="false" id="clienteDlg"
+                              showEffect="fade" hideEffect="fade" modal="true" width="40%">
+                        <h:panelGrid id="display" columns="2" cellpadding="4" >
+                            <h:outputText value="Nome: " style="font-weight:bold" />
+                            <h:outputText value="#{clienteBean.selectedCliente.nome}"/>
+                            <h:outputText value="Telefone: " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.telefone}"/>
+                            <h:outputText value="Email: " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.email}"/>
+                            <h:outputText value="Rua: " style="font-weight:bold" />
+                            <h:outputText value="#{clienteBean.selectedCliente.endereco.rua}"/>
+                            <h:outputText value="Bairro: " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.endereco.bairro}"/>
+                            <h:outputText value="Nº do Logradouro:  " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.endereco.numero}"/>
+                            <h:outputText value="CEP:  " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.endereco.cep}"/>
+                            <h:outputText value="Comlemento:  " style="font-weight:bold"/>  
+                            <h:outputText value="#{clienteBean.selectedCliente.endereco.complemento}"/>
+                        </h:panelGrid>
+                    </p:dialog>
+
                 </h:form>
-            </p:fieldset>
-
-            <p:fieldset legend="Resultado">
-                <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
-                             emptyMessage="Nenhum registro encontrado." reflow="true"
-                             rows="8" paginator="true" paginatorPosition="bottom"
-                             styleClass="ui-table-columntoggle">
-                    <p:column headerText="ID" width="30">
-                        <h:outputText value="#{cliente.id}" />
-                    </p:column>
-
-                    <p:column headerText="Nome">
-                        <h:outputText value="#{cliente.nome}" />
-                    </p:column>
-
-                    <p:column headerText="Telefone">
-                        <h:outputText value="#{cliente.telefone}" />
-                    </p:column>
-
-                    <p:column headerText="Email">
-                        <h:outputText value="#{cliente.email}" />
-                    </p:column>
-
-                    <p:column headerText="Gerenciar" width="120">
-                        <center>
-                        <p:button icon="ui-icon-pencil" outcome="cliente_edit.xhtml" alt="Editar" title="Editar">
-                            <f:param name="cliente" value="#{cliente.id}" />
-                        </p:button>
-                        <p:button icon="ui-icon-trash" outcome="cliente_delete.xhtml" alt="Deletar" title="Deletar">
-                            <f:param name="cliente" value="#{cliente.id}" />
-                        </p:button>
-                        <p:button icon="ui-icon-search" alt="Detalhes" title="Detalhes"/>
-                        </center>
-                    </p:column>
-                </p:dataTable>
             </p:fieldset>
         </ui:define>
     </ui:composition>

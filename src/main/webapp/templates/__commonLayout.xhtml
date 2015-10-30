@@ -9,7 +9,12 @@
     <h:head>
         <title><ui:insert name="title">Página principal</ui:insert></title>
         <h:outputStylesheet library="css" name="pizzaria-style.css"/>
+        <h:outputStylesheet library="layout/css" name="style.css"/>
+        <h:outputStylesheet library="layout/css" name="reset.css"/>
+        
+        <h:outputScript library="layout/js" name="modernizr.js"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+       
     </h:head>
 
     <h:body>
@@ -17,21 +22,129 @@
 
         <div id="header">
             <ui:insert name="header">
-                <p:panel styleClass="header-panel" >
-                    <h1>Pizzaria Daca</h1>
-                </p:panel>
+                <header class="cd-main-header">
+                    <a href="#0" class="cd-logo"><h:graphicImage library="layout/images" name="pizza-logo.svg"/></a>
+                    <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+
+                    <nav class="cd-nav">
+                        <ul class="cd-top-nav">
+                            <li><a href="#0">Suporte</a></li>
+                            <li class="has-children account">
+                                <a href="#0">
+                                    Admin
+                                </a>
+                                <ul>
+                                    <li><a href="#0">Minha Conta</a></li>
+                                    <li><a href="#0">Sair</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
             </ui:insert>
         </div>
 
         <div id="content">
-            <ui:insert name="content" />
+            
+            <main class="cd-main-content">
+            <nav class="cd-side-nav">
+                <ul>
+                    <!--DASHBOARD-->
+                    <li class="has-button-link dashboard">
+                        <p:link outcome="index.xhtml" value="Dashboard"/>
+                    </li>
+                    <!--END OF DASHBOARD-->
+
+                    <!--PEDIDOS CATEGORY-->
+                    <li class="cd-label">Pedidos</li>
+
+                    <!--PEDIDO LOCAL-->
+                    <li class="has-children pedidolocal active">
+                        <a href="#0">Pedido Local
+                            <!-- <span class="count">3</span> // USAR CASO O SISTEMA LIDE COM PEDIDOS DE CLIENTES USUARIOS-->
+                        </a>
+                        <ul>
+                            <li><a href="#0">Novo</a>
+                            </li>
+                            <li><a href="#0">Pesquisar</a></li>
+                        </ul>
+                    </li>
+                    <!--END PEDIDO LOCAL-->
+
+                    <!--PEDIDO DELIVERY-->
+                    <li class="has-children pedidodelivery active">
+                        <a href="#0">Pedido Delivery
+                            <!-- <span class="count">3</span>-->
+                        </a>
+                        <ul>
+                            <li><a href="#0">Novo</a></li>
+                            <li><a href="#0">Pesquisar</a></li>
+                            <li><a href="#0">Timeline</a></li>
+                        </ul>
+                    </li>
+                    <!--END PEDIDO DELIVERY-->
+
+                    <!--CLIENTES-->
+                    <li class="has-button-link relatorios">
+                        <a href="#0">Relatórios</a>
+                    </li>
+                    <!--END CLIENTES-->
+                </ul>
+
+                <ul>
+                    <!--CADASTROS CATEGORY-->
+                    <li class="cd-label">Cadastros</li>
+
+                    <!-- LANCHES -->
+                    <li class="has-button-link lanche">
+                        <a href="#0">Lanches</a>
+                    </li>
+                    <!--END LANCHES-->
+
+                    <!--PIZZAS-->
+                    <li class="has-children pizza">
+                        <a href="#0">Pizzas</a>
+                        <ul>
+                            <li><a href="#0">Pizza</a></li>
+                            <li><a href="#0">Sabor</a></li>
+                            <li><a href="#0">Tamnaho</a></li>
+                        </ul>
+                    </li>
+                    <!--END PIZZAS-->
+
+                    <!--CLIENTES-->
+                    <li class="has-button-link person">
+                        <p:link outcome="clientes.xhtml" value="Clientes"/>
+                    </li>
+                    <!--END CLIENTES-->
+
+                    <!--USUARIOS-->
+                    <li class="has-button-link person">
+                        <h:link outcome="index.xhtml" value="Usuários"/>
+                    </li>
+                </ul>
+                <!--END USUARIOS-->
+
+                <!-- <ul>
+                    <li class="cd-label">Action</li>
+                    <li class="action-btn"><a href="#0">+ Button</a></li>
+                </ul>-->
+                <br/>
+            </nav>
+
+            <div class="content-wrapper">
+                <br/>
+                
+                <ui:insert name="content" />
+
+            </div> <!-- .content-wrapper -->
+        </main> <!-- .cd-main-content -->
+            
         </div>
 
         <div id="footer">
-            <p:panel style="width : 100%; text-align:center">
-                <h:outputLabel value="Minha Aplicação - v1.0" />
-            </p:panel>
+            
         </div>
-
+        <h:outputScript library="layout/js" name="main.js"/>
     </h:body>
 </html>

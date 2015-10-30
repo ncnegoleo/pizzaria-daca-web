@@ -1,0 +1,44 @@
+.ui-datatable .ui-column-filter {
+    display: block;
+    width: 70% !important;
+    margin: auto;
+    border: 1px dashed !important;
+    border-color: rgba(100,100,100,0.5) !important;
+
+}
+
+.btn-detail-deskt {
+    display: none !important;
+}
+
+.btn-detail-moblie {
+    display: inline !important;
+}
+
+.add-cliente-btn {
+    margin-bottom: 10px !important;
+    width: 100% !important;
+    height: 2.4em;
+}
+
+@media only screen and (min-width: 1170px) {
+    .btn-detail-deskt {
+        display: inline !important;
+    }
+    .btn-detail-moblie {
+        display: none !important;
+    }
+
+    .add-cliente-btn {
+        margin-bottom: 10px !important;
+    }
+}
+
+@media only screen and (min-width: 640px) { 
+    .add-cliente-btn {
+        margin-bottom: 10px !important;
+        width: 15em !important;
+        height: 2em;
+    }
+}
+
