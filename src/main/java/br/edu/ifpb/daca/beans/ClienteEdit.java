@@ -28,6 +28,7 @@ public class ClienteEdit extends AbstractBean implements Serializable {
     public void preRenderView() {
         if (cliente == null) {
             cliente = new Cliente();
+            cliente.setEndereco(new Endereco());
             cliente.setTelefone("");
         }
         if(!FacesContext.getCurrentInstance().isPostback() && conversation.isTransient()) {
@@ -41,7 +42,6 @@ public class ClienteEdit extends AbstractBean implements Serializable {
                 clienteService.update(cliente);
                 successMessageReport("Cliente atualizado com sucesso!");
             } else {
-                cliente.setEndereco(new Endereco()); // Provisório até arrumar a parte do endereço
                 clienteService.save(cliente);
                 successMessageReport("Cliente salvo com sucesso!");
             }

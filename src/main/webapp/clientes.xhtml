@@ -13,13 +13,13 @@
         <ui:define name="content">
 
             <p:messages closable="true" showDetail="true" id="messages"/>
-            
+
             <p:fieldset legend="Clientes">
                 <h:form id="formGerenciar">
 
                     <p:button icon="ui-icon-trash" outcome="cliente_edit" alt="Novo" 
                               title="Novo Cliente" value="Novo Cliente" styleClass="add-cliente-btn"/>
-                    
+
                     <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"

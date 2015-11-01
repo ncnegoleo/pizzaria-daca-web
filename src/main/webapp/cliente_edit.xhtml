@@ -9,6 +9,7 @@
       xmlns:o="http://omnifaces.org/ui">
 
     <ui:composition template="/templates/__commonLayout.xhtml">
+
         <f:metadata>
             <o:viewParam name="cliente" value="#{clienteEdit.cliente}" 
                          converter="#{clienteConverter}"/>
@@ -20,38 +21,116 @@
         </ui:define>
 
         <ui:define name="content">
+            <h:outputStylesheet library="css" name="form-cliente.css"/>
+
             <p:messages autoUpdate="true" showDetail="true"/>
 
             <h:form id="formEdicao" prependId="false">
+                <p:fieldset >
+                    <p:panelGrid >
 
-                <p:panelGrid columns="2">
-                    <f:facet name="header">CLIENTE</f:facet>
+                        <p:row  rendered="#{clienteEdit.edicaoCliente}" >
+                            <p:column ><p:outputLabel value="Id"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
 
-                    <p:outputLabel value="Id" rendered="#{clienteEdit.edicaoCliente}" />
-                    <p:outputLabel value="#{clienteEdit.cliente.id}"
-                                   rendered="#{clienteEdit.edicaoCliente}" />
+                        <p:row rendered="#{clienteEdit.edicaoCliente}">
+                            <p:column><p:inputText value="#{clienteEdit.cliente.id}" disabled="true"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
 
-                    <p:outputLabel for="nome" value="Nome:" />
-                    <p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
-                                 label="Nome" required="true" />
+                        <p:row>
+                            <p:column colspan="4" ><p:outputLabel for="nome" value="Nome:" /></p:column>
+                            <p:column />
+                            <p:column colspan="2"><p:outputLabel for="telefone" value="Telefone:" /></p:column>
+                        </p:row>
 
-                    <p:outputLabel for="telefone" value="Telefone:" />
-                    <p:inputText id="telefone" value="#{clienteEdit.cliente.telefone}"
-                                 label="Telefone" required="true">
-                        <f:validator validatorId="telefoneValidator"/>
-                    </p:inputText>
+                        <p:row>
+                            <p:column colspan="4"><p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
+                                                               label="Nome" required="true" /></p:column>
+                            <p:column />
+                            <p:column colspan="1">
+                                <p:inputMask id="telefone" value="#{clienteEdit.cliente.telefone}"
+                                             label="Telefone" required="true" mask="(99)99999-9999">
+                                    <f:validator validatorId="telefoneValidator"/>
+                                </p:inputMask>
+                            </p:column>
+                        </p:row>
 
-                    <p:outputLabel for="email" value="Email: " />
-                    <p:inputText id="email" value="#{clienteEdit.cliente.email}" label="Email"/>
+                        <p:row>
+                            <p:column colspan="2"><p:outputLabel for="email" value="Email: " /></p:column>
+                            <p:column style="width: 20% !important"/>
+                            <p:column style="width: 20% !important"/>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:inputText id="email" value="#{clienteEdit.cliente.email}" label="Email"/>
+                            </p:column>
+                            <p:column colspan="3"/>
+                        </p:row>
+                    </p:panelGrid>
 
-                    <f:facet name="footer">
-                        <p:commandButton id="btnSubmit" action="#{clienteEdit.saveCliente}" value="Submit"
-                                         icon="ui-icon-check" />
-                        <p:commandButton id="btnCancel" action="clientes.xhtml?faces-redirect=true" value="Cancel"
-                                         icon="ui-icon-cancel" immediate="true" />
-                    </f:facet>
+                    <p:separator style="width: 98%"/>
 
-                </p:panelGrid>
+                    <p:panelGrid >
+                        <p:row>
+                            <p:column colspan="4"><p:outputLabel for="rua" value="Rua:" /></p:column>
+                            <p:column/>
+                            <p:column colspan="1"><p:outputLabel for="bairro" value="Bairro:" /></p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="4">
+                                <p:inputText id="rua" value="#{clienteEdit.cliente.endereco.rua}" label="Rua" />
+                            </p:column>
+                            <p:column/>
+                            <p:column colspan="2">
+                                <p:inputText id="bairro" value="#{clienteEdit.cliente.endereco.bairro}" label="Bairro"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel for="complemento" value="Complemento: " />
+                            </p:column>
+                            <p:column style="width: 41%"/>
+                            <p:column colspan="3"/>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="7">
+                                <p:inputTextarea  id="complemento" value="#{clienteEdit.cliente.endereco.complemento}" 
+                                                  label="Complemento"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column><p:outputLabel for="numero" value="Número" /></p:column>
+                            <p:column><p:outputLabel for="cep" value="CEP" /></p:column>
+                        </p:row>              
+                        <p:row>
+                            <p:column>
+                                <p:inputText id="numero" value="#{clienteEdit.cliente.endereco.numero}" label="Número"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputMask id="cep" value="#{clienteEdit.cliente.endereco.cep}" label="CEP" mask="99.999-999"/>
+                            </p:column>
+                        </p:row>
+
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton id="btnSubmit" action="#{clienteEdit.saveCliente}" value="Submit"
+                                                     icon="ui-icon-check" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="btnCancel" action="clientes.xhtml?faces-redirect=true" value="Cancel"
+                                                     icon="ui-icon-cancel" immediate="true" />
+                                </p:column>
+                                <p:column colspan="5" style="width: 80% !important"/>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:fieldset>
             </h:form>
         </ui:define>
 

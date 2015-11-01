@@ -384,6 +384,7 @@ Sidebar
     width: 100%;
     height: auto;
     max-height: 1000vh;
+    min-height: 100%;
     padding: 45px 0 0;
     background: #2c3136 url("ui-bg_dots-small_36_35414f_2x2.png.xhtml?ln=layout/images") 10% 10% repeat;
     visibility: hidden;
@@ -507,6 +508,7 @@ Sidebar
     height: 100%;
     display: none;
 }
+
 @media only screen and (min-width: 768px) {
     .cd-side-nav {
         height: 100%;
