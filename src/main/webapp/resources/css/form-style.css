@@ -1,3 +1,7 @@
+.ui-fieldset {
+    display: inline-block !important;
+}
+
 ui-panelgrid-cell ui-widget-header {
     padding-top: 10px !important;
 }
@@ -9,6 +13,11 @@ ui-panelgrid-cell ui-widget-header {
 
 .ui-panelgrid button {
     margin-left: -3px !important;
+}
+
+.btn-select .ui-button .ui-button-text {
+    padding: 6px 16px;
+    font-size: 0.7rem;
 }
 
 .ui-panelgrid textarea {

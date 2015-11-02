@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <ui:define name="title">
+            Sabor list
+        </ui:define>
+        <ui:define name="content">
+
+            <p:messages closable="true" showDetail="true" id="messages"/>
+
+            <p:fieldset legend="Sabores">
+                <h:form id="formGerenciar">
+
+                    <p:button icon="ui-icon-trash" outcome="sabor_edit" alt="Novo" 
+                              title="Novo Sabor" value="Novo Sabor" styleClass=".add-btn"/>
+
+                    <p:dataTable id="idTabela" var="sabor" value="#{saborBean.sabores}"
+                                 emptyMessage="Nenhum registro encontrado." reflow="true"
+                                 rows="8" paginator="true" paginatorPosition="bottom"
+                                 styleClass="ui-table-columntoggle" widgetVar="saborTable">
+                        
+                        <p:column filterBy="#{sabor.id}" headerText="ID" width="60">
+                            <h:outputText value="#{sabor.id}" />
+                        </p:column>
+
+                        <p:column filterBy="#{sabor.sabor}" headerText="Sabor">
+                            <h:outputText value="#{sabor.sabor}" />
+                        </p:column>
+
+                        <p:column filterBy="#{sabor.disponivel}" headerText="Situação" styleClass="btn-filter">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('saborTable').filter()" >
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue=""/>
+                                    <f:selectItem itemLabel="Dispo." itemValue="true"/>
+                                    <f:selectItem itemLabel="Indisp." itemValue="false"/>
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{sabor.disponivel ? 'Sim' : 'Não'}" />
+                        </p:column>
+
+                        <p:column headerText="Gerenciar" width="110">
+                                <!-- Editar -->
+                                <p:button icon="ui-icon-pencil" outcome="sabor_edit.xhtml" alt="Editar" title="Editar">
+                                    <f:param name="sabor" value="#{sabor.id}" />
+                                </p:button>
+
+                                <!-- Deletar -->
+                                <p:button icon="ui-icon-trash" outcome="sabor_delete.xhtml" alt="Deletar" title="Deletar">
+                                    <f:param name="sabor" value="#{sabor.id}" />
+                                </p:button>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+    </ui:composition>
+</html>

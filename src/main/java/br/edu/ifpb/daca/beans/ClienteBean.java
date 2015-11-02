@@ -21,24 +21,14 @@ public class ClienteBean extends AbstractBean implements Serializable {
     
     @Inject
     private ClienteService clienteService;
-    
-    String nomeFiltro;
 
     @PostConstruct
     public void init() {
-        filtrar();
+        setClientList();
     }
 
     public List<Cliente> getClientes() {
         return clientes;
-    }
-
-    public String getNomeFiltro() {
-        return nomeFiltro;
-    }
-
-    public void setNomeFiltro(String nomeFiltro) {
-        this.nomeFiltro = nomeFiltro;
     }
 
     public Cliente getSelectedCliente() {
@@ -49,16 +39,11 @@ public class ClienteBean extends AbstractBean implements Serializable {
         this.selectedCliente = selectedCliente;
     }
     
-    public void filtrar() {
+    public void setClientList() {
         try {
-            clientes = clienteService.findByNome(nomeFiltro);
+            clientes = clienteService.getAll();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getLocalizedMessage());
         }
     }
-
-    public void limparFiltro() {
-        nomeFiltro = null;
-    }
-
 }

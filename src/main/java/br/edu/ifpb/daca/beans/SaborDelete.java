@@ -1,7 +1,7 @@
 package br.edu.ifpb.daca.beans;
 
-import br.edu.ifpb.daca.entities.Cliente;
-import br.edu.ifpb.daca.service.ClienteService;
+import br.edu.ifpb.daca.entities.Sabor;
+import br.edu.ifpb.daca.service.SaborService;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -13,15 +13,15 @@ import javax.inject.Named;
 
 @Named
 @ConversationScoped
-public class ClienteDelete extends AbstractBean implements Serializable {
-
+public class SaborDelete extends AbstractBean implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     
-    private Cliente cliente;
-
+    private Sabor sabor;
+    
     @Inject @RequestScoped
-    private ClienteService clienteService;
-
+    private SaborService saborService;
+    
     @Inject
     private Conversation conversation;
     
@@ -32,28 +32,27 @@ public class ClienteDelete extends AbstractBean implements Serializable {
         }
     }
     
-    public String deleteCliente() {
+    public String deleteSabor() {
         try {
             conversation.end();
-            clienteService.delete(cliente);
-            successMessageReport("Cliente removido com sucesso!");
+            saborService.delete(sabor);
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
-
-        return "clientes.xhtml?faces-redirect=true";
+        
+        return "sabores.xhtml?faces-redirect=true";
     }
-
+    
     public String cancel() {
         conversation.end();
-        return "clientes.xhtml?faces-redirect=true";
+        return "sabores.xhtml?faces-redirect=true";
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Sabor getSabor() {
+        return sabor;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setSabor(Sabor sabor) {
+        this.sabor = sabor;
     }
 }

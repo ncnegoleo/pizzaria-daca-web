@@ -7,6 +7,12 @@
 
 }
 
+.btn-filter .ui-button .ui-button-text {
+    display: block;
+    border: 1px solid !important;
+    border-color: rgba(100,100,100,0.5) !important;
+}
+
 .btn-detail-deskt {
     display: none !important;
 }
@@ -15,7 +21,7 @@
     display: inline !important;
 }
 
-.add-cliente-btn {
+.add-btn {
     margin-bottom: 10px !important;
     width: 100% !important;
     height: 2.4em;

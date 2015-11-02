@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+
+        <f:metadata>
+            <o:viewParam name="sabor" value="#{saborEdit.sabor}" 
+                         converter="#{saborConverter}"/>
+            <f:event listener="#{saborEdit.preRenderView()}" type="preRenderView" />
+        </f:metadata>
+
+        <ui:define name="title">
+            Sabor edit
+        </ui:define>
+
+        <ui:define name="content">
+            <h:outputStylesheet library="css" name="form-style.css"/>
+
+            <p:messages autoUpdate="true" showDetail="true"/>
+
+            <h:form id="formEdicao" prependId="false">
+                <p:fieldset >
+                    <p:panelGrid >
+
+                        <p:row  rendered="#{saborEdit.edicaoSabor}" >
+                            <p:column ><p:outputLabel value="Id"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
+
+                        <p:row rendered="#{saborEdit.edicaoSabor}">
+                            <p:column><p:inputText value="#{saborEdit.sabor.id}" disabled="true"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="4" ><p:outputLabel for="sabor" value="Sabor:" /></p:column>
+                            <p:column colspan="3"><p:outputLabel value="Disponível?" /></p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="4"><p:inputText id="sabor" value="#{saborEdit.sabor.sabor}"
+                                                               label="Sabor" required="true" /></p:column>
+                            <p:column colspan="6" >
+                                <p:selectOneButton value="#{saborEdit.sabor.disponivel}" required="true" styleClass="btn-select">
+                                    <f:selectItem itemLabel="SIM" itemValue="true" />
+                                    <f:selectItem itemLabel="NÃO" itemValue="false" />
+                                </p:selectOneButton>
+                            </p:column>
+                        </p:row>
+
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton id="btnSubmit" action="#{saborEdit.saveSabor}" value="Submit"
+                                                     icon="ui-icon-check" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="btnCancel" action="sabores.xhtml?faces-redirect=true" value="Cancel"
+                                                     icon="ui-icon-cancel" immediate="true" />
+                                </p:column>
+                                <p:column colspan="5" style="width: 100% !important"/>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:fieldset>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
