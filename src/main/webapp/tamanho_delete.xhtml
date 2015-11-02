@@ -9,12 +9,12 @@
 
     <ui:composition template="/templates/__commonLayout.xhtml">
         <f:metadata>
-            <o:viewParam name="sabor" value="#{saborDelete.sabor}" 
-                         converter="#{saborConverter}"/>
+            <o:viewParam name="tamanho" value="#{tamanhoDelete.tamanho}" 
+                         converter="#{tamanhoConverter}"/>
         </f:metadata>
 
         <ui:define name="title">
-            Sabor delete
+            Tamanho delete
         </ui:define>
         <ui:define name="content">
             <h:form>
@@ -23,11 +23,11 @@
                         Confirmação!
                     </f:facet>
                     <h:outputLabel
-                        value="Deseja realmente deletar '#{saborDelete.sabor.sabor}'?" />
+                        value="Deseja realmente deletar '#{tamanhoDelete.tamanho.tamanho}'?" />
                     <f:facet name="footer">
-                        <p:commandButton id="btnDelete" action="#{saborDelete.deleteSabor}" value="Delete"
+                        <p:commandButton id="btnDelete" action="#{tamanhoDelete.deleteTamanho}" value="Delete"
                                          icon="ui-icon-close" />
-                        <p:commandButton id="btnCancel" action="#{saborDelete.cancel}" value="Cancel"
+                        <p:commandButton id="btnCancel" action="#{tamanhoDelete.cancel}" value="Cancel"
                                          icon="ui-icon-cancel" />
                     </f:facet>
                 </p:panelGrid>

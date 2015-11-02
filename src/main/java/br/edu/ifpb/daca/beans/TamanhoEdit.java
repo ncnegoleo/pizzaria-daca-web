@@ -1,7 +1,7 @@
 package br.edu.ifpb.daca.beans;
 
-import br.edu.ifpb.daca.entities.Sabor;
-import br.edu.ifpb.daca.service.SaborService;
+import br.edu.ifpb.daca.entities.Tamanho;
+import br.edu.ifpb.daca.service.TamanhoService;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import javax.enterprise.context.Conversation;
@@ -12,54 +12,54 @@ import javax.inject.Named;
 
 @Named
 @ConversationScoped
-public class SaborEdit extends AbstractBean implements Serializable {
+public class TamanhoEdit extends AbstractBean implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private Sabor sabor;
+    private Tamanho tamanho;
     
     @Inject
-    private SaborService saborService;
+    private TamanhoService tamanhoService;
     
     @Inject
     private Conversation conversation;
     
     public void preRenderView() {
-        if(sabor == null) {
-            sabor = new  Sabor();
-            sabor.setDisponivel(true);
+        if(tamanho == null) {
+            tamanho = new Tamanho();
+            tamanho.setDisponivel(true);
         }
         if(!FacesContext.getCurrentInstance().isPostback() && conversation.isTransient()) {
             conversation.begin();
         }
     }
     
-    public String saveSabor() {
+    public String saveTamanho() {
         try {
-            if(sabor.getId() != null) {
-                saborService.update(sabor);
-                successMessageReport("Sabor atualizado com sucesso!");
+            if(tamanho.getId() != null) {
+                tamanhoService.update(tamanho);
+                successMessageReport("Tamanho atualizado com sucesso!");
             } else {
-                saborService.save(sabor);
-                successMessageReport("Sabor salvo com sucesso!");
+                tamanhoService.save(tamanho);
+                successMessageReport("Tamanho salvo com sucesso!");
             }
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
             return null;
         }
         conversation.end();
-        return "sabores.xhtml?faces-redirect=true";
+        return "tamanhos.xhtml?faces-redirect=true";
     }
     
-    public boolean isEdicaoSabor() {
-        return sabor.getId() != null;
+    public boolean isEdicaoTamanho() {
+        return tamanho.getId() != null;
     }
 
-    public Sabor getSabor() {
-        return sabor;
+    public Tamanho getTamanho() {
+        return tamanho;
     }
 
-    public void setSabor(Sabor sabor) {
-        this.sabor = sabor;
+    public void setTamanho(Tamanho tamanho) {
+        this.tamanho = tamanho;
     }
 }

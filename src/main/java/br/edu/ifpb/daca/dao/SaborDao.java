@@ -32,7 +32,7 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
         try {
             resultado = em.merge(sabor);
         } catch (PersistenceException pe) {
-           throw new DacaPersistenceException("Ocorreu algum problema em "
+            throw new DacaPersistenceException("Ocorreu algum problema em "
                     + "atualizar o sabor", pe);
         }
         return resultado;
@@ -57,7 +57,7 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
         try {
             resultado = em.find(Sabor.class, id);
         } catch (PersistenceException pe) {
-           throw new DacaPersistenceException("Ocorreu algum problema em "
+            throw new DacaPersistenceException("Ocorreu algum problema em "
                     + "recuperar o sabor", pe);
         }
 
@@ -73,7 +73,36 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
                     "SELECT s FROM Sabor_Entity s", Sabor.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
-           throw new DacaPersistenceException("Ocorreu algum problema em "
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os sabores", pe);
+        }
+        return resultado;
+    }
+
+    public List<Sabor> getAllDisponivel() throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<Sabor> resultado = null;
+        try {
+            TypedQuery<Sabor> query = em.createQuery("SELECT s FROM Sabor_Entity s"
+                    + " WHERE s.disponivel = TRUE", Sabor.class);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os sabores", pe);
+        }
+        return resultado;
+    }
+
+    public List<Sabor> getAllDisponivelExcept(Long id) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<Sabor> resultado = null;
+        try {
+            TypedQuery<Sabor> query = em.createQuery("SELECT s FROM Sabor_Entity s"
+                    + " WHERE s.disponivel = TRUE and s.id <> :id", Sabor.class);
+            query.setParameter("id", id);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
                     + "recuperar os sabores", pe);
         }
         return resultado;

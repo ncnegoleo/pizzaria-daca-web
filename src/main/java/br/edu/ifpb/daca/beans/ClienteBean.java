@@ -43,7 +43,7 @@ public class ClienteBean extends AbstractBean implements Serializable {
         try {
             clientes = clienteService.getAll();
         } catch (DacaServiceException ex) {
-            errorMessageReport(ex.getLocalizedMessage());
+            errorMessageReport(ex.getMessage());
         }
     }
 }

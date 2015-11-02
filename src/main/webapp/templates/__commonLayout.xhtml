@@ -8,14 +8,13 @@
 
     <h:head>
         <title><ui:insert name="title">Página principal</ui:insert></title>
-        
         <h:outputStylesheet library="css" name="pizzaria-style.css"/>
         <h:outputStylesheet library="layout/css" name="style.css"/>
         <h:outputStylesheet library="layout/css" name="reset.css"/>
-        
+
         <h:outputScript library="layout/js" name="modernizr.js"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-       
+
     </h:head>
 
     <h:body>
@@ -47,105 +46,101 @@
         </div>
 
         <div id="content">
-            
+
             <main class="cd-main-content">
-            <nav class="cd-side-nav">
-                <ul>
-                    <!--DASHBOARD-->
-                    <li class="has-button-link dashboard">
-                        <p:link outcome="index.xhtml" value="Dashboard"/>
-                    </li>
-                    <!--END OF DASHBOARD-->
+                <nav class="cd-side-nav">
+                    <ul>
+                        <!--DASHBOARD-->
+                        <li class="has-button-link dashboard">
+                            <p:link outcome="index.xhtml" value="Dashboard"/>
+                        </li>
+                        <!--END OF DASHBOARD-->
 
-                    <!--PEDIDOS CATEGORY-->
-                    <li class="cd-label">Pedidos</li>
+                        <!--PEDIDOS CATEGORY-->
+                        <li class="cd-label">Pedidos</li>
 
-                    <!--PEDIDO LOCAL-->
-                    <li class="has-children pedidolocal active">
-                        <a href="#0">Pedido Local
-                            <!-- <span class="count">3</span> // USAR CASO O SISTEMA LIDE COM PEDIDOS DE CLIENTES USUARIOS-->
-                        </a>
-                        <ul>
-                            <li><a href="#0">Novo</a>
-                            </li>
-                            <li><a href="#0">Pesquisar</a></li>
-                        </ul>
-                    </li>
-                    <!--END PEDIDO LOCAL-->
+                        <!--PEDIDO LOCAL-->
+                        <li class="has-children pedidolocal active">
+                            <a href="#0">Pedido Local
+                                <!-- <span class="count">3</span> // USAR CASO O SISTEMA LIDE COM PEDIDOS DE CLIENTES USUARIOS-->
+                            </a>
+                            <ul>
+                                <li><a href="#0">Novo</a>
+                                </li>
+                                <li><a href="#0">Pesquisar</a></li>
+                            </ul>
+                        </li>
+                        <!--END PEDIDO LOCAL-->
 
-                    <!--PEDIDO DELIVERY-->
-                    <li class="has-children pedidodelivery active">
-                        <a href="#0">Pedido Delivery
-                            <!-- <span class="count">3</span>-->
-                        </a>
-                        <ul>
-                            <li><a href="#0">Novo</a></li>
-                            <li><a href="#0">Pesquisar</a></li>
-                            <li><a href="#0">Timeline</a></li>
-                        </ul>
-                    </li>
-                    <!--END PEDIDO DELIVERY-->
+                        <!--PEDIDO DELIVERY-->
+                        <li class="has-children pedidodelivery active">
+                            <a href="#0">Pedido Delivery
+                                <!-- <span class="count">3</span>-->
+                            </a>
+                            <ul>
+                                <li><a href="#0">Novo</a></li>
+                                <li><a href="#0">Pesquisar</a></li>
+                                <li><a href="#0">Timeline</a></li>
+                            </ul>
+                        </li>
+                        <!--END PEDIDO DELIVERY-->
 
-                    <!--CLIENTES-->
-                    <li class="has-button-link relatorios">
-                        <a href="#0">Relatórios</a>
-                    </li>
-                    <!--END CLIENTES-->
-                </ul>
+                        <!--CLIENTES-->
+                        <li class="has-button-link relatorios">
+                            <a href="#0">Relatórios</a>
+                        </li>
+                        <!--END CLIENTES-->
+                    </ul>
 
-                <ul>
-                    <!--CADASTROS CATEGORY-->
-                    <li class="cd-label">Cadastros</li>
+                    <ul>
+                        <!--CADASTROS CATEGORY-->
+                        <li class="cd-label">Cadastros</li>
 
-                    <!-- LANCHES -->
-                    <li class="has-button-link lanche">
-                        <a href="#0">Lanches</a>
-                    </li>
-                    <!--END LANCHES-->
+                        <!-- LANCHES -->
+                        <li class="has-button-link lanche">
+                            <a href="#0">Lanches</a>
+                        </li>
+                        <!--END LANCHES-->
 
-                    <!--PIZZAS-->
-                    <li class="has-children pizza">
-                        <a href="#0">Pizzas</a>
-                        <ul>
-                            <li><a href="#0">Pizza</a></li>
-                            <li><p:link outcome="sabores.xhtml" value="Sabor"/></li>
-                            <li><a href="#0">Tamnaho</a></li>
-                        </ul>
-                    </li>
-                    <!--END PIZZAS-->
+                        <!--PIZZAS-->
+                        <li class="has-children pizza">
+                            <a href="#0">Pizzas</a>
+                            <ul>
+                                <li><a href="#0">Pizza</a></li>
+                                <li><p:link outcome="sabores.xhtml" value="Sabor"/></li>
+                                <li><p:link outcome="tamanhos.xhtml" value="Tamanho"/></li>
+                            </ul>
+                        </li>
+                        <!--END PIZZAS-->
 
-                    <!--CLIENTES-->
-                    <li class="has-button-link person">
-                        <p:link outcome="clientes.xhtml" value="Clientes"/>
-                    </li>
-                    <!--END CLIENTES-->
+                        <!--CLIENTES-->
+                        <li class="has-button-link person">
+                            <p:link outcome="clientes.xhtml" value="Clientes"/>
+                        </li>
+                        <!--END CLIENTES-->
 
-                    <!--USUARIOS-->
-                    <li class="has-button-link person">
-                        <h:link outcome="index.xhtml" value="Usuários"/>
-                    </li>
-                </ul>
-                <!--END USUARIOS-->
+                        <!--USUARIOS-->
+                        <li class="has-button-link person">
+                            <h:link outcome="index.xhtml" value="Usuários"/>
+                        </li>
+                    </ul>
+                    <!--END USUARIOS-->
+                    
+                    <br/>
+                </nav>
 
-                <!-- <ul>
-                    <li class="cd-label">Action</li>
-                    <li class="action-btn"><a href="#0">+ Button</a></li>
-                </ul>-->
-                <br/>
-            </nav>
+                <div class="content-wrapper">
+                    <br/>
 
-            <div class="content-wrapper">
-                <br/>
-                
-                <ui:insert name="content" />
+                    <ui:insert name="content" />
 
-            </div> <!-- .content-wrapper -->
-        </main> <!-- .cd-main-content -->
-            
+                </div> <!-- .content-wrapper -->
+            </main> <!-- .cd-main-content -->
+
         </div>
 
         <div id="footer">
-            
+
         </div>
         <h:outputScript library="layout/js" name="main.js"/>
     </h:body>

@@ -18,10 +18,10 @@ import javax.inject.Inject;
 public class SaborService implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private SaborDao saborDao;
-    
+
     /**
      * Salva um novo sabor.
      *
@@ -36,7 +36,7 @@ public class SaborService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Atualiza os dados de um sabor.
      *
@@ -52,7 +52,7 @@ public class SaborService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Exclui um sabor.
      *
@@ -67,7 +67,7 @@ public class SaborService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Retorna um sabor cadastrado pelo id;
      *
@@ -82,7 +82,7 @@ public class SaborService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Recupera todos os sabores cadastrados.
      *
@@ -92,6 +92,36 @@ public class SaborService implements Serializable {
     public List<Sabor> getAll() throws DacaServiceException {
         try {
             return saborDao.getAll();
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     * Recupera todos os sabores disponíveis cadastrados.
+     *
+     * @return List of disponível Sabores
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
+     */
+    public List<Sabor> getAllDisponivel() throws DacaServiceException {
+        try {
+            return saborDao.getAllDisponivel();
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     * Recupera todos os sabores disponiveis exceto o que cujo o id for
+     * informado.
+     *
+     * @param id 
+     * @return List of disponivel Sabores exceto um.
+     * @throws DacaServiceException
+     */
+    public List<Sabor> getAllDisponielExcept(Long id) throws DacaServiceException {
+        try {
+            return saborDao.getAllDisponivelExcept(id);
         } catch (DacaPersistenceException ex) {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
