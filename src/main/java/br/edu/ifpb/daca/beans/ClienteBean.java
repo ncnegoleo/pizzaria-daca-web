@@ -27,6 +27,13 @@ public class ClienteBean extends AbstractBean implements Serializable {
         setClientList();
     }
 
+    /**
+     * Testando error page
+     * 
+     */
+    public void testaExcecao() {
+        throw new RuntimeException("Teste excecão");
+    }
     public List<Cliente> getClientes() {
         return clientes;
     }

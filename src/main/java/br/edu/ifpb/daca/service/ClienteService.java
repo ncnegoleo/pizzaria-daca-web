@@ -3,12 +3,13 @@ package br.edu.ifpb.daca.service;
 import br.edu.ifpb.daca.dao.ClienteDao;
 import br.edu.ifpb.daca.entities.Cliente;
 import br.edu.ifpb.daca.entities.Endereco;
-import br.edu.ifpb.daca.util.annotations.TransactionalCDI;
+import br.edu.ifpb.daca.validation.DacaException;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Classe que controla todas as funções de responsabilidade a entidade
@@ -30,7 +31,7 @@ public class ClienteService implements Serializable {
      * @param cliente.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void save(Cliente cliente) throws DacaServiceException {
         try {
             clienteDao.save(cliente);
@@ -46,7 +47,7 @@ public class ClienteService implements Serializable {
      * @return Cliente.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public Cliente update(Cliente cliente) throws DacaServiceException {
         try {
             return clienteDao.update(cliente);
@@ -61,7 +62,7 @@ public class ClienteService implements Serializable {
      * @param cliente
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void delete(Cliente cliente) throws DacaServiceException {
         try {
             clienteDao.delete(cliente);
@@ -77,6 +78,7 @@ public class ClienteService implements Serializable {
      * @return Cliente.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public Cliente getById(Long id) throws DacaServiceException {
         try {
             return clienteDao.getById(id);
@@ -91,6 +93,7 @@ public class ClienteService implements Serializable {
      * @return List of Cliente
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Cliente> getAll() throws DacaServiceException {
         try {
             return clienteDao.getAll();
@@ -106,6 +109,7 @@ public class ClienteService implements Serializable {
      * @return Lista de Cliente
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Cliente> findByNome(String nome) throws DacaServiceException {
         try {
             return clienteDao.findClienteByNome(nome);

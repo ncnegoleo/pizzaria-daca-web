@@ -23,7 +23,8 @@
                     <p:dataTable id="idTabela" var="sabor" value="#{saborBean.sabores}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"
-                                 styleClass="ui-table-columntoggle" widgetVar="saborTable">
+                                 styleClass="ui-table-columntoggle" widgetVar="saborTable"
+                                 paginatorAlwaysVisible="false">
                         
                         <p:column filterBy="#{sabor.id}" headerText="ID" width="60">
                             <h:outputText value="#{sabor.id}" />
@@ -42,7 +43,7 @@
                                     <f:selectItem itemLabel="Indisp." itemValue="false"/>
                                 </p:selectOneButton>
                             </f:facet>
-                            <h:outputText value="#{sabor.disponivel ? 'Sim' : 'Não'}" />
+                            <h:outputText value="#{sabor.disponivel ? 'Disponível' : 'Indisponível'}" />
                         </p:column>
 
                         <p:column headerText="Gerenciar" width="110">

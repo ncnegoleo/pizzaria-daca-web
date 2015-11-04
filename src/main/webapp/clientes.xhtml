@@ -23,7 +23,9 @@
                     <p:dataTable id="idTabela" var="cliente" value="#{clienteBean.clientes}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"
-                                 styleClass="ui-table-columntoggle">
+                                 styleClass="ui-table-columntoggle"
+                                 paginatorAlwaysVisible="false">
+                        
                         <p:column filterBy="#{cliente.id}" headerText="ID" width="60">
                             <h:outputText value="#{cliente.id}" />
                         </p:column>

@@ -2,12 +2,13 @@ package br.edu.ifpb.daca.service;
 
 import br.edu.ifpb.daca.dao.SaborDao;
 import br.edu.ifpb.daca.entities.Sabor;
-import br.edu.ifpb.daca.util.annotations.TransactionalCDI;
+import br.edu.ifpb.daca.validation.DacaException;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Classe que controla todas as funções de responsabilidade a entidade
@@ -28,7 +29,7 @@ public class SaborService implements Serializable {
      * @param sabor.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void save(Sabor sabor) throws DacaServiceException {
         try {
             saborDao.save(sabor);
@@ -44,7 +45,7 @@ public class SaborService implements Serializable {
      * @return Sabor.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public Sabor update(Sabor sabor) throws DacaServiceException {
         try {
             return saborDao.update(sabor);
@@ -59,7 +60,7 @@ public class SaborService implements Serializable {
      * @param sabor.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void delete(Sabor sabor) throws DacaServiceException {
         try {
             saborDao.delete(sabor);
@@ -75,6 +76,7 @@ public class SaborService implements Serializable {
      * @return Sabor.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public Sabor getById(Long id) throws DacaServiceException {
         try {
             return saborDao.getById(id);
@@ -89,6 +91,7 @@ public class SaborService implements Serializable {
      * @return List of Sabores
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Sabor> getAll() throws DacaServiceException {
         try {
             return saborDao.getAll();
@@ -103,6 +106,7 @@ public class SaborService implements Serializable {
      * @return List of disponível Sabores
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Sabor> getAllDisponivel() throws DacaServiceException {
         try {
             return saborDao.getAllDisponivel();
@@ -119,6 +123,7 @@ public class SaborService implements Serializable {
      * @return List of disponivel Sabores exceto um.
      * @throws DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Sabor> getAllDisponielExcept(Long id) throws DacaServiceException {
         try {
             return saborDao.getAllDisponivelExcept(id);

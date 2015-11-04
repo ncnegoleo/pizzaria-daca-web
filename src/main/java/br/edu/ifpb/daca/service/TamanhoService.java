@@ -2,12 +2,13 @@ package br.edu.ifpb.daca.service;
 
 import br.edu.ifpb.daca.dao.TamanhoDao;
 import br.edu.ifpb.daca.entities.Tamanho;
-import br.edu.ifpb.daca.util.annotations.TransactionalCDI;
+import br.edu.ifpb.daca.validation.DacaException;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Classe que controla todas as funções de responsabilidade a entidade
@@ -28,7 +29,7 @@ public class TamanhoService implements Serializable {
      * @param tamanho.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void save(Tamanho tamanho) throws DacaServiceException {
         try {
             tamanhoDao.save(tamanho);
@@ -44,7 +45,7 @@ public class TamanhoService implements Serializable {
      * @return Tamanho.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public Tamanho update(Tamanho tamanho) throws DacaServiceException {
         try {
             return tamanhoDao.update(tamanho);
@@ -59,7 +60,7 @@ public class TamanhoService implements Serializable {
      * @param tamanho.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
-    @TransactionalCDI
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void delete(Tamanho tamanho) throws DacaServiceException {
         try {
             tamanhoDao.delete(tamanho);
@@ -75,6 +76,7 @@ public class TamanhoService implements Serializable {
      * @return Tamanho.
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public Tamanho getById(Long id) throws DacaServiceException {
         try {
             return tamanhoDao.getById(id);
@@ -89,6 +91,7 @@ public class TamanhoService implements Serializable {
      * @return List of Tamanhos
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
     public List<Tamanho> getAll() throws DacaServiceException {
         try {
             return tamanhoDao.getAll();

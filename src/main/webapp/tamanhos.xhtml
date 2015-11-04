@@ -23,7 +23,8 @@
                     <p:dataTable id="idTabela" var="tamanho" value="#{tamanhoBean.tamanhos}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"
-                                 styleClass="ui-table-columntoggle" widgetVar="tamanhoTable">
+                                 styleClass="ui-table-columntoggle" widgetVar="tamanhoTable" 
+                                 paginatorAlwaysVisible="false">
 
                         <p:column filterBy="#{tamanho.id}" headerText="ID" width="60">
                             <h:outputText value="#{tamanho.id}" />
@@ -42,7 +43,7 @@
                                     <f:selectItem itemLabel="Indisp." itemValue="false"/>
                                 </p:selectOneButton>
                             </f:facet>
-                            <h:outputText value="#{tamanho.disponivel ? 'Sim' : 'Não'}" />
+                            <h:outputText value="#{tamanho.disponivel ? 'Disponível' : 'Indisponível'}" />
                         </p:column>
 
                         <p:column headerText="Gerenciar" width="110">

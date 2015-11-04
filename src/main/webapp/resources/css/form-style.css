@@ -1,5 +1,6 @@
 .ui-fieldset {
     display: inline-block !important;
+    width: 100%;
 }
 
 ui-panelgrid-cell ui-widget-header {
