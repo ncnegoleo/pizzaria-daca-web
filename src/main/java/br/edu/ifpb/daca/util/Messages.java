@@ -6,10 +6,10 @@ import javax.faces.context.Flash;
 
 public class Messages {
 
-    public static void addFlashMessage(String message) {
+    public static void addFlashMessage(FacesMessage facesMessage) {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         flash.setKeepMessages(true);
         flash.setRedirect(true);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
     }
 }

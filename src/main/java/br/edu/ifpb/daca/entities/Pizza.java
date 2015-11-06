@@ -3,6 +3,7 @@ package br.edu.ifpb.daca.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity(name = "Pizza_Entity")
 @Table(name = "PIZZA")
+@DiscriminatorValue("P")
 public class Pizza extends Lanche implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -93,7 +95,8 @@ public class Pizza extends Lanche implements Serializable {
 
     @Override
     public String toString() {
-        return "Pizza{" + "sabores=" + sabores + ", tamanho=" + tamanho + '}';
+        return super.toString() + " Pizza{" + "sabores=" + sabores + ", tamanho=" + tamanho + '}';
     }
-
+    
+    
 }

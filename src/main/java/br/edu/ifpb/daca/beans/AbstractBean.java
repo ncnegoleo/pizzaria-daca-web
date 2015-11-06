@@ -1,11 +1,15 @@
 package br.edu.ifpb.daca.beans;
 
+import br.edu.ifpb.daca.util.Messages;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 
+/**
+ * Classe que implementa as funções básicas comuns em todos os managedbeans.
+ * @author leonardo
+ */
 public class AbstractBean implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -28,12 +32,6 @@ public class AbstractBean implements Serializable {
             FacesContext.getCurrentInstance().validationFailed();
         }
         
-        FacesMessage msg = new FacesMessage(severity, type, details);
-        
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        flash.setKeepMessages(true);
-        flash.setRedirect(true);
-        
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Messages.addFlashMessage(new FacesMessage(severity, type, details));
     }
 }

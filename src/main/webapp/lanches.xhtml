@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <ui:define name="title">
+            Sabor list
+        </ui:define>
+        <ui:define name="content">
+            <p:messages closable="true" showDetail="true" id="messages"/>
+
+            <p:fieldset legend="Lanches">
+                <h:form id="formGerenciar">
+                    <p:button icon="ui-icon-plusthick"  alt="Novo" 
+                              title="Novo Lanche" value="Novo Lanche" styleClass=".add-btn"/>
+                    <p:button icon="ui-icon-plusthick"  alt="Novo" 
+                              title="Nova Pizza" value="Nova Pizza" style="margin-left: 5px !important" styleClass=".add-btn"/>
+
+                    <p:dataTable id="idTabela" var="lanche" value="#{lancheBean.lanches}"
+                                 emptyMessage="Nenhum registro encontrado." reflow="true"
+                                 rows="8" paginator="true" paginatorPosition="bottom"
+                                 styleClass="ui-table-columntoggle" widgetVar="saborTable"
+                                 paginatorAlwaysVisible="false">
+
+                        <p:column filterBy="#{lanche.id}" headerText="ID" width="60">
+                            <h:outputText value="#{lanche.id}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo" width="60">
+                            <h:outputText value=" #{lancheBean.isPizza(lanche)  ? 'Pizza' : 'Lanche'}" />
+                        </p:column>
+
+                        <p:column filterBy="#{lanche.descricao}" headerText="Nome">
+                            <h:outputText value="#{lanche.descricao}" />
+                        </p:column>
+
+                        <p:column filterBy="#{lanche.valorUnitario}" headerText="Valor">
+                            <h:outputText value="R$ #{lanche.valorUnitario}" />
+                        </p:column>
+
+                        <p:column headerText="Gerenciar" width="150">
+                            <!-- Editar -->
+                            <p:button icon="ui-icon-pencil"  alt="Editar" title="Editar">
+                                <f:param name="lanche" value="#{lanche.id}" />
+                            </p:button>
+
+                            <!-- Deletar -->
+                            <p:button icon="ui-icon-trash" alt="Deletar" title="Deletar">
+                                <f:param name="lanche" value="#{lanche.id}" />
+                            </p:button>
+
+                            <!-- Detalhes -->
+                            <p:commandButton rendered="#{lancheBean.isPizza(lanche)}" styleClass="btn-detail-deskt" icon="ui-icon-search"
+                                             alt="Detalhes" title="Detalhes">
+                            </p:commandButton>
+
+                            <p:button rendered="#{lancheBean.isPizza(lanche)}" styleClass="btn-detail-moblie" icon="ui-icon-search" alt="Detalhes" title="Detalhes">
+                                <f:param name="cliente" value="#{lanche.id}" />
+                            </p:button>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+    </ui:composition>
+</html>
