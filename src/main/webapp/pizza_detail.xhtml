@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <f:metadata>
+            <o:viewParam name="pizza" value="#{pizzaDetail.pizza}" 
+                         converter="#{lancheConverter}"/>
+        </f:metadata>
+
+        <ui:define name="title">
+            Lanche Details
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Lanches" url="lanches.xhtml" />
+                    <p:menuitem value="Detalhes" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
+            <p:panelGrid style="width: 100% !important">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">PIZZA</p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column><h:outputText value="Detalhes: " style="font-weight:bold" /></p:column>
+                    <p:column><h:outputText value="#{pizzaDetail.pizza.descricao}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Valor Unitário: " style="font-weight:bold"/></p:column>  
+                    <p:column>
+                        <h:outputText value="#{pizzaDetail.pizza.valorUnitario}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                        </h:outputText>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Tamanho: " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{pizzaDetail.pizza.tamanho.tamanho}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Sabores: " style="font-weight:bold"/></p:column>
+                    <p:column>
+                        <ui:repeat value="#{pizzaDetail.pizza.sabores}" var="sabores">
+                            <li><h:outputText value="#{sabores.sabor}"/></li>
+                        </ui:repeat>
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <h:form>
+                            <p:commandButton id="btnCancel" action="#{pizzaDetail.cancel}" value="Cancel"
+                                             icon="ui-icon-cancel" />
+                        </h:form>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </ui:define>
+    </ui:composition>
+</html>

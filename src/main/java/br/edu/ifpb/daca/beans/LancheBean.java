@@ -18,7 +18,8 @@ public class LancheBean extends AbstractBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Lanche> lanches;
-
+    private Pizza selectedPizza;
+    
     @Inject
     private LancheService lancheService;
 
@@ -40,6 +41,14 @@ public class LancheBean extends AbstractBean implements Serializable {
         return lanches;
     }
 
+    public Pizza getSelectedPizza() {
+        return selectedPizza;
+    }
+
+    public void setSelectedPizza(Pizza selectedPizza) {
+        this.selectedPizza = selectedPizza;
+    }
+    
     private void setPizzaList() {
         try {
             lanches = lancheService.getAl();

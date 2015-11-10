@@ -27,6 +27,10 @@ public class ClienteBean extends AbstractBean implements Serializable {
         setClientList();
     }
 
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
     public Cliente getSelectedCliente() {
         return selectedCliente;
     }

@@ -31,7 +31,7 @@ public class LancheService implements Serializable {
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void save(Lanche lanche) throws DacaServiceException {
-        try{
+        try {
             lancheDao.save(lanche);
         } catch (DacaPersistenceException ex) {
             throw new DacaServiceException(ex.getMessage(), ex);
@@ -40,7 +40,7 @@ public class LancheService implements Serializable {
 
     /**
      * Atualiza os daodos de um lanche
-     * 
+     *
      * @param lanche
      * @return Lanche
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
@@ -53,12 +53,12 @@ public class LancheService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Exclui um lanche
-     * 
+     *
      * @param lanche
-     * @throws DacaServiceException 
+     * @throws DacaServiceException
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.REQUIRED)
     public void delete(Lanche lanche) throws DacaServiceException {
@@ -68,7 +68,23 @@ public class LancheService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
-    
+
+    /**
+     * Retorna um lanche cadastrado pelo id;
+     *
+     * @param id
+     * @return Lanche.
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
+     */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
+    public Lanche getById(Long id) throws DacaServiceException {
+        try {
+            return lancheDao.getById(id);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
+
     /**
      * Recupera todo os lanches cadastrados.
      *

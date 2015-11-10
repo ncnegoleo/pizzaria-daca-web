@@ -10,12 +10,12 @@
 
     <ui:composition template="/templates/__commonLayout.xhtml">
         <f:metadata>
-            <o:viewParam name="cliente" value="#{clienteDelete.cliente}" 
-                         converter="#{clienteConverter}"/>
+            <o:viewParam name="lanche" value="#{lancheDelete.lanche}" 
+                         converter="#{lancheConverter}"/>
         </f:metadata>
 
         <ui:define name="title">
-            Cliente delete
+            Lanche delete
         </ui:define>
 
         <ui:define name="content">
@@ -23,7 +23,7 @@
             <h:form>
                 <p:breadCrumb homeDisplay="false">
                     <p:menuitem value="Dashboard" url="index.xhtml" />
-                    <p:menuitem value="Clientes" url="clientes.xhtml" />
+                    <p:menuitem value="Lamches" url="clientes.xhtml" />
                     <p:menuitem value="Deletar" url="#" style="color: #1784C7" />
                 </p:breadCrumb>
             </h:form>
@@ -35,11 +35,11 @@
                         Confirmação!
                     </f:facet>
                     <h:outputLabel
-                        value="Deseja realmente deletar '#{clienteDelete.cliente.nome}'?" />
+                        value="Deseja realmente deletar '#{lancheDelete.lanche.descricao}'?" />
                     <f:facet name="footer">
-                        <p:commandButton id="btnDelete" action="#{clienteDelete.deleteCliente}" value="Delete"
+                        <p:commandButton id="btnDelete" action="#{lancheDelete.deleteLanche}" value="Delete"
                                          icon="ui-icon-close" />
-                        <p:commandButton id="btnCancel" action="#{clienteDelete.cancel}" value="Cancel"
+                        <p:commandButton id="btnCancel" action="#{lancheDelete.cancel}" value="Cancel"
                                          icon="ui-icon-cancel" />
                     </f:facet>
                 </p:panelGrid>

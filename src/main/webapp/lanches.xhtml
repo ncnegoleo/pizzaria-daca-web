@@ -7,17 +7,26 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/templates/__commonLayout.xhtml">
         <ui:define name="title">
-            Sabor list
+            Lanche list
         </ui:define>
         <ui:define name="content">
             <p:messages closable="true" showDetail="true" id="messages"/>
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Lanches" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
 
             <p:fieldset legend="Lanches">
                 <h:form id="formGerenciar">
                     <p:button icon="ui-icon-plusthick"  alt="Novo" 
                               title="Novo Lanche" value="Novo Lanche" styleClass=".add-btn"/>
                     <p:button icon="ui-icon-plusthick"  alt="Novo" 
-                              title="Nova Pizza" value="Nova Pizza" style="margin-left: 5px !important" styleClass=".add-btn"/>
+                              title="Nova Pizza" value="Nova Pizza" outcome="pizza_edit.xhtml" style="margin-left: 5px !important" styleClass=".add-btn"/>
 
                     <p:dataTable id="idTabela" var="lanche" value="#{lancheBean.lanches}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
@@ -38,30 +47,59 @@
                         </p:column>
 
                         <p:column filterBy="#{lanche.valorUnitario}" headerText="Valor">
-                            <h:outputText value="R$ #{lanche.valorUnitario}" />
+                            <h:outputText value="#{lanche.valorUnitario}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                            </h:outputText>
                         </p:column>
 
                         <p:column headerText="Gerenciar" width="150">
                             <!-- Editar -->
-                            <p:button icon="ui-icon-pencil"  alt="Editar" title="Editar">
+                            <p:button rendered="#{lancheBean.isPizza(lanche)}" icon="ui-icon-pencil" outcome="pizza_edit.xhtml"  alt="Editar" title="Editar">
+                                <f:param name="pizza" value="#{lanche.id}" />
+                            </p:button>
+
+                            <!-- Editar -->
+                            <p:button rendered="#{!lancheBean.isPizza(lanche)}" icon="ui-icon-pencil"  alt="Editar" title="Editar">
                                 <f:param name="lanche" value="#{lanche.id}" />
                             </p:button>
 
                             <!-- Deletar -->
-                            <p:button icon="ui-icon-trash" alt="Deletar" title="Deletar">
+                            <p:button icon="ui-icon-trash" alt="Deletar" outcome="lanche_delete" title="Deletar">
                                 <f:param name="lanche" value="#{lanche.id}" />
                             </p:button>
 
                             <!-- Detalhes -->
                             <p:commandButton rendered="#{lancheBean.isPizza(lanche)}" styleClass="btn-detail-deskt" icon="ui-icon-search"
-                                             alt="Detalhes" title="Detalhes">
+                                             update="formGerenciar:display" oncomplete="PF('detailDialog').show();" alt="Detalhes" title="Detalhes">
+                                <f:setPropertyActionListener value="#{lanche}" target="#{lancheBean.selectedPizza}"/>
                             </p:commandButton>
 
-                            <p:button rendered="#{lancheBean.isPizza(lanche)}" styleClass="btn-detail-moblie" icon="ui-icon-search" alt="Detalhes" title="Detalhes">
-                                <f:param name="cliente" value="#{lanche.id}" />
+                            <p:button rendered="#{lancheBean.isPizza(lanche)}" outcome="pizza_detail.xhtml" styleClass="btn-detail-moblie" icon="ui-icon-search" alt="Detalhes" title="Detalhes">
+                                <f:param name="pizza" value="#{lanche.id}" />
                             </p:button>
                         </p:column>
                     </p:dataTable>
+
+                    <p:dialog header="Pizza Detail" widgetVar="detailDialog" resizable="false" id="clienteDlg"
+                              showEffect="fade" hideEffect="fade" modal="true" width="40%">
+                        <h:panelGrid id="display" columns="2" cellpadding="4">
+                            <h:outputText value="Descrição " style="font-weight:bold" />
+                            <h:outputText value="#{lancheBean.selectedPizza.descricao}"/>
+                            <h:outputText value="Valor Unitário " style="font-weight:bold"/>  
+                            <h:outputText value="#{lancheBean.selectedPizza.valorUnitario}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                            </h:outputText>
+                            <h:outputText value="Tamanho " style="font-weight:bold"/>  
+                            <h:outputText value="#{lancheBean.selectedPizza.tamanho.tamanho}"/>
+                            <h:outputText value="Sabores " style="font-weight:bold"/>  
+                            <h:panelGroup>
+                                <ui:repeat value="#{lancheBean.selectedPizza.sabores}" var="sabores">
+                                    <li><h:outputText value="#{sabores.sabor}"/></li>
+                                </ui:repeat>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </p:dialog>
+
                 </h:form>
             </p:fieldset>
         </ui:define>

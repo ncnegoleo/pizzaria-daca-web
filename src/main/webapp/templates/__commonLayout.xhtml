@@ -98,13 +98,13 @@
 
                         <!-- LANCHES -->
                         <li class="has-button-link lanche">
-                            <a href="#0">Lanches</a>
+                            <p:link outcome="lanches.xhtml" value="Lanches"/>
                         </li>
                         <!--END LANCHES-->
 
                         <!--PIZZAS-->
                         <li class="has-children pizza">
-                            <a href="#0">Pizza</a>
+                            <a href="#0">Atributos da Pizza</a>
                             <ul>
                                 <li><p:link outcome="sabores.xhtml" value="Sabor"/></li>
                                 <li><p:link outcome="tamanhos.xhtml" value="Tamanho"/></li>
@@ -120,17 +120,16 @@
 
                         <!--USUARIOS-->
                         <li class="has-button-link person">
-                            <h:link outcome="index.xhtml" value="Usuários"/>
+                            <h:link outcome="index.xhtml" value="Mesas"/>
                         </li>
                     </ul>
                     <!--END USUARIOS-->
-                    
+
                     <br/>
                 </nav>
 
                 <div class="content-wrapper">
                     <br/>
-
                     <ui:insert name="content" />
 
                 </div> <!-- .content-wrapper -->

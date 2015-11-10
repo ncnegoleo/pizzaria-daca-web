@@ -22,6 +22,40 @@
     //font-size: 1em;
 }
 
+.ui-selectcheckboxmenu {
+    height: 26px;
+    vertical-align: top;
+    margin-top: 10px !important;
+}
+
+.ui-selectcheckboxmenu-label {
+    height: 26px !important;
+    padding: auto !important;
+}
+
+
+.ui-datalist-item {
+    font-size: .95rem !important;
+    padding: 0.1em 0 !important;
+    margin-left: .5em !important;
+    list-style-type: square!important;
+    list-style-position: inside !important;
+}
+
+.ui-dialog .ui-dialog-content table > tbody > tr > td{
+    padding-top: 1em !important;
+    padding-left: .3em !important;
+}
+
+.ui-dialog .ui-dialog-content table {
+    margin: auto;
+    min-width: 100% !important;
+}
+
+.ui-dialog .ui-dialog-content table > tbody > tr{
+    border: 1px solid;
+}
+
 .ui-buttonset .ui-button {
     padding: 0.2em !important;
 }
@@ -63,12 +97,24 @@
 .ui-widget button {
     border: 0px solid #0a3c59 !important;
     background: #1c1f22;
-    background: -webkit-gradient(linear, left top, left bottom, from(#33383e), to(#1c1f22));
-    background: -webkit-linear-gradient(top, #33383e, #1c1f22);
-    background: -moz-linear-gradient(top, #33383e, #1c1f22);
-    background: -ms-linear-gradient(top, #33383e, #1c1f22);
-    background: -o-linear-gradient(top, #33383e, #1c1f22);
-    background-image: -ms-linear-gradient(top, #33383e 0%, #1c1f22 100%);
+    background: 
+    
+    -webkit-gradient(linear, left top, left bottom, from(#33383e), to(#1c1f22));
+    background: 
+    
+    -webkit-linear-gradient(top, #33383e, #1c1f22);
+    background: 
+    
+    -moz-linear-gradient(top, #33383e, #1c1f22);
+    background: 
+    
+    -ms-linear-gradient(top, #33383e, #1c1f22);
+    background: 
+    
+    -o-linear-gradient(top, #33383e, #1c1f22);
+    background-image: 
+    
+    -ms-linear-gradient(top, #33383e 0%, #1c1f22 100%);
     padding: 0.2em !important;
     margin: 0.2em 0 !important;
     -webkit-border-radius: 6px;
@@ -148,7 +194,6 @@
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    border: 1px solid !important;
     border-color: rgba(100,100,100,0.5) !important;
     background: #1c1f22;
     background: -webkit-gradient(linear, left top, left bottom, from(#6a6c80), to(#1c1f22));
@@ -267,7 +312,7 @@
     //background-image: url("/pizzaria-daca-web/javax.faces.resource/images/ui-icons_454545_256x240.png.xhtml?ln=primefaces-black-tilt");
 }
 .ui-state-active .ui-icon {
-    background-image: url("/pizzaria-daca-web/javax.faces.resource/images/ui-icons_454545_256x240.png.xhtml?ln=primefaces-black-tilt");
+    //background-image: url("/pizzaria-daca-web/javax.faces.resource/images/ui-icons_454545_256x240.png.xhtml?ln=primefaces-black-tilt");
 }
 .ui-state-highlight .ui-icon {
     background-image: url("/pizzaria-daca-web/javax.faces.resource/images/ui-icons_2e83ff_256x240.png.xhtml?ln=primefaces-black-tilt");

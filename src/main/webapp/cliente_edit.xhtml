@@ -25,6 +25,16 @@
 
             <p:messages autoUpdate="true" showDetail="true"/>
 
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Clientes" url="clientes.xhtml"/>
+                    <p:menuitem value="Cadastro de Clientes" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+            
             <h:form id="formEdicao" prependId="false">
                 <p:fieldset >
                     <p:panelGrid >
@@ -115,8 +125,7 @@
                                 <p:inputMask id="cep" value="#{clienteEdit.cliente.endereco.cep}" label="CEP" mask="99.999-999"/>
                             </p:column>
                         </p:row>
-
-                        <f:facet name="footer">
+                        
                             <p:row>
                                 <p:column>
                                     <p:commandButton id="btnSubmit" action="#{clienteEdit.saveCliente}" value="Submit"
@@ -128,7 +137,7 @@
                                 </p:column>
                                 <p:column colspan="5" style="width: 80% !important"/>
                             </p:row>
-                        </f:facet>
+
                     </p:panelGrid>
                 </p:fieldset>
             </h:form>

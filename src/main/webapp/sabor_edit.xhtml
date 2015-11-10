@@ -55,19 +55,18 @@
                             </p:column>
                         </p:row>
 
-                        <f:facet name="footer">
-                            <p:row>
-                                <p:column>
-                                    <p:commandButton id="btnSubmit" action="#{saborEdit.saveSabor}" value="Submit"
-                                                     icon="ui-icon-check" />
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton id="btnCancel" action="sabores.xhtml?faces-redirect=true" value="Cancel"
-                                                     icon="ui-icon-cancel" immediate="true" />
-                                </p:column>
-                                <p:column colspan="5" style="width: 100% !important"/>
-                            </p:row>
-                        </f:facet>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="btnSubmit" action="#{saborEdit.saveSabor}" value="Submit"
+                                                 icon="ui-icon-check" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="btnCancel" action="sabores.xhtml?faces-redirect=true" value="Cancel"
+                                                 icon="ui-icon-cancel" immediate="true" />
+                            </p:column>
+                            <p:column colspan="5" style="width: 100% !important"/>
+                        </p:row>
+
                     </p:panelGrid>
                 </p:fieldset>
             </h:form>

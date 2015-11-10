@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+
+        <f:metadata>
+            <o:viewParam name="pizza" value="#{pizzaEdit.pizza}" 
+                         converter="#{pizzaConverter}"/>
+            <f:event listener="#{pizzaEdit.preRenderView()}" type="preRenderView" />
+        </f:metadata>
+
+        <ui:define name="title">
+            Pizza edit
+        </ui:define>
+        <ui:define name="content">
+            <h:outputStylesheet library="css" name="form-style.css"/>
+
+            <p:messages closable="true" showDetail="true" id="messages" autoUpdate="true"/>
+
+            <h:form id="formEdicao" prependId="false">
+                <p:fieldset legend="Cadastro de Pizzas">
+                    <p:panelGrid>
+                        <p:row  rendered="#{pizzaEdit.edicaoPizza}" >
+                            <p:column><p:outputLabel value="Id"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
+
+                        <p:row rendered="#{pizzaEdit.edicaoPizza}">
+                            <p:column ><p:inputText value="#{pizzaEdit.pizza.id}" disabled="true"/></p:column>
+                            <p:column colspan="5"/>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="4"><p:outputLabel value="Descrição: *"/></p:column>
+                            <p:column />
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="4" style="width: 80% !important"><p:inputText value="#{pizzaEdit.pizza.descricao}" /></p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3"><p:outputLabel value="Valor: *"/></p:column>
+                            <p:column/>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column colspan="3"><p:inputText value="#{pizzaEdit.pizza.valorUnitario}" /></p:column>
+                            <p:column/>
+                            <p:column />
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column colspan="2"><p:outputLabel value="Sabores: *"/></p:column>
+                            <p:column />
+                            <p:column colspan="2"><p:outputLabel value="Tamanho: *"/></p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="2" style="width: 10%">
+                                <p:selectCheckboxMenu id="sabores" value="#{pizzaEdit.pizza.sabores}"
+                                                      label="Selecione" style="width: 100% !important; margin-top: -9px !important">
+                                    <f:selectItems value="#{pizzaEdit.sabores}" var="sabor" 
+                                                   itemValue="#{sabor}" itemLabel="#{sabor.sabor}"/>
+                                    <f:validator validatorId="limitCheckboxMenuValidator" />                       
+                                    <f:attribute name="minLimit" value="1" />
+                                    <f:attribute name="maxLimit" value="2" />
+                                    <f:converter converterId="saborConverter"/>
+                                </p:selectCheckboxMenu>
+                            </p:column>
+                            <p:column style="width: 3%">
+                                <p:commandButton id="btnUpdate" update="display"
+                                        icon="ui-icon-refresh" title="Atualizar"  alt="Atulizar" 
+                                        style="margin-top: -3px !important"/>
+                            </p:column>
+                            <p:column rowspan="3" style="width: 40%">
+                                <p:selectOneMenu id="tamanho" value="#{pizzaEdit.pizza.tamanho}"
+                                                 style="width:100%; height: 26px !important;" filter="true">
+                                    <f:selectItems value="#{pizzaEdit.tamanhos}" var="tamanho" 
+                                                   itemValue="#{tamanho}" itemLabel="#{tamanho.tamanho}"/>
+                                    <f:converter converterId="tamanhoConverter" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3" style="width: 20%; margin-top: -8px !important">
+                                <p:outputPanel id="display" style="width:100%; margin-top:10px !important;">
+                                    <p:dataList value="#{pizzaEdit.pizza.sabores}" var="s" emptyMessage="Nenhum Sabor selecionado!">
+                                        #{s.sabor}
+                                    </p:dataList>
+                                </p:outputPanel>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="btnSubmit" action="#{pizzaEdit.savePizza}" value="Submit"
+                                                 icon="ui-icon-check" />
+                            </p:column>
+                            <p:column >
+                                <p:commandButton id="btnCancel" action="lanches.xhtml?faces-redirect=true" value="Cancel"
+                                                 icon="ui-icon-cancel" immediate="true" />
+                            </p:column>
+                            <p:column />
+                        </p:row>
+
+                    </p:panelGrid>
+                </p:fieldset>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

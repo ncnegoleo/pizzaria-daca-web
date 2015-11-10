@@ -19,7 +19,17 @@
         </ui:define>
 
         <ui:define name="content">
-            
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Clientes" url="clientes.xhtml" />
+                    <p:menuitem value="Detalhes" url="#" style="color: #1784C7" />
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
             <p:panelGrid style="width: 100% !important">
                 <f:facet name="header">
                     <p:row>
