@@ -1,6 +1,7 @@
 package br.edu.ifpb.daca.service;
 
 import br.edu.ifpb.daca.dao.SaborDao;
+import br.edu.ifpb.daca.entities.Pizza;
 import br.edu.ifpb.daca.entities.Sabor;
 import br.edu.ifpb.daca.validation.DacaException;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
@@ -119,7 +120,7 @@ public class SaborService implements Serializable {
      * Recupera todos os sabores disponiveis exceto o que cujo o id for
      * informado.
      *
-     * @param id 
+     * @param id
      * @return List of disponivel Sabores exceto um.
      * @throws DacaServiceException
      */
@@ -127,6 +128,15 @@ public class SaborService implements Serializable {
     public List<Sabor> getAllDisponielExcept(Long id) throws DacaServiceException {
         try {
             return saborDao.getAllDisponivelExcept(id);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
+    
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
+    public boolean isInPizzaAssociation(Sabor sabor) throws DacaServiceException {
+        try {
+            return saborDao.isInPizzaAssociation(sabor);
         } catch (DacaPersistenceException ex) {
             throw new DacaServiceException(ex.getMessage(), ex);
         }

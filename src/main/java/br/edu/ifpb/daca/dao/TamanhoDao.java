@@ -1,5 +1,6 @@
 package br.edu.ifpb.daca.dao;
 
+import br.edu.ifpb.daca.entities.Pizza;
 import br.edu.ifpb.daca.entities.Tamanho;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
@@ -79,4 +80,18 @@ public class TamanhoDao extends DAO implements Persistible<Tamanho, Long> {
         return resultado;
     }
 
+    public boolean isInPizzaAssociation(Tamanho tamanho) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<Pizza> resultado = null;
+        try {
+            TypedQuery<Pizza> query = em.createQuery(
+                    "SELECT p FROM Pizza_Entity p WHERE :tamanho = p.tamanho", Pizza.class);
+            query.setParameter("tamanho", tamanho);
+            resultado = query.getResultList();
+            return resultado.size() > 0;
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os lanches", pe);
+        }
+    }
 }

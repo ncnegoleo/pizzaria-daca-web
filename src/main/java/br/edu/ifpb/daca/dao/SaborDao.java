@@ -1,5 +1,6 @@
 package br.edu.ifpb.daca.dao;
 
+import br.edu.ifpb.daca.entities.Pizza;
 import br.edu.ifpb.daca.entities.Sabor;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
@@ -106,5 +107,20 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
                     + "recuperar os sabores", pe);
         }
         return resultado;
+    }
+    
+    public boolean isInPizzaAssociation(Sabor sabor) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+            List<Pizza> resultado = null;
+            try {
+                TypedQuery<Pizza> query = em.createQuery(
+                        "SELECT p FROM Pizza_Entity p WHERE :sabor MEMBER OF p.sabores", Pizza.class);
+                query.setParameter("sabor", sabor);
+                resultado = query.getResultList();
+                return resultado.size() > 0;
+            } catch (PersistenceException pe) {
+                throw new DacaPersistenceException("Ocorreu algum problema em "
+                        + "recuperar os lanches", pe);
+            }
     }
 }

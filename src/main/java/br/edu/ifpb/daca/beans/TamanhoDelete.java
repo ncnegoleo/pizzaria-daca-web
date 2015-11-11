@@ -14,35 +14,50 @@ import javax.inject.Named;
 @Named
 @ConversationScoped
 public class TamanhoDelete extends AbstractBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private Tamanho tamanho;
-    
-    @Inject @RequestScoped
+
+    @Inject
+    @RequestScoped
     private TamanhoService tamanhoService;
-    
+
     @Inject
     private Conversation conversation;
-    
+
     @PostConstruct
     public void init() {
-        if(conversation.isTransient()) {
+        if (conversation.isTransient()) {
             conversation.begin();
         }
     }
-    
+
     public String deleteTamanho() {
+        if (!isInAssociation()) {
+            try {
+                conversation.end();
+                tamanhoService.delete(tamanho);
+                successMessageReport("Tamnaho deletado com sucesso!");
+            } catch (DacaServiceException ex) {
+                errorMessageReport(ex.getMessage());
+            }
+        } else {
+            errorMessageReport("Não é possível deletar um "
+                    + "tamanho que está associado a uma Pizza!");
+        }
+        return "tamanhos.xhtml?faces-redirect=true";
+    }
+
+    private boolean isInAssociation() {
         try {
-            conversation.end();
-            tamanhoService.delete(tamanho);
+            return tamanhoService.isInPizzaAssociation(tamanho);
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
-        
-        return "tamanhos.xhtml?faces-redirect=true";
+        return false;
     }
-    
+
     public String cancel() {
         conversation.end();
         return "tamanhos.xhtml?faces-redirect=true";

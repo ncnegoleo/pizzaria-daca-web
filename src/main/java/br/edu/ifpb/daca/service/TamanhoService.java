@@ -99,4 +99,13 @@ public class TamanhoService implements Serializable {
             throw new DacaServiceException(ex.getMessage(), ex);
         }
     }
+    
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
+    public boolean isInPizzaAssociation(Tamanho tamanho) throws DacaServiceException {
+         try {
+            return tamanhoDao.isInPizzaAssociation(tamanho);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
 }

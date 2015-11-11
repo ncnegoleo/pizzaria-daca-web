@@ -14,35 +14,54 @@ import javax.inject.Named;
 @Named
 @ConversationScoped
 public class SaborDelete extends AbstractBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private Sabor sabor;
-    
-    @Inject @RequestScoped
+
+    @Inject
+    @RequestScoped
     private SaborService saborService;
-    
+
     @Inject
     private Conversation conversation;
-    
+
     @PostConstruct
     public void init() {
-        if(conversation.isTransient()) {
+        if (conversation.isTransient()) {
             conversation.begin();
         }
     }
-    
+
+    public SaborDelete() {
+
+    }
+
     public String deleteSabor() {
+        if (!isInAssociation()) {
+            try {
+                conversation.end();
+                saborService.delete(sabor);
+                successMessageReport("Sabor deletado com sucesso!");
+            } catch (DacaServiceException ex) {
+                errorMessageReport(ex.getMessage());
+            }
+        } else {
+            errorMessageReport("Não é possível deletar um "
+                    + "sabor que está associado a uma Pizza!");
+        }
+        return "sabores.xhtml?faces-redirect=true";
+    }
+
+    private boolean isInAssociation() {
         try {
-            conversation.end();
-            saborService.delete(sabor);
+            return saborService.isInPizzaAssociation(sabor);
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
-        
-        return "sabores.xhtml?faces-redirect=true";
+        return false;
     }
-    
+
     public String cancel() {
         conversation.end();
         return "sabores.xhtml?faces-redirect=true";

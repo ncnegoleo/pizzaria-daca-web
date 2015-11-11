@@ -1,7 +1,7 @@
 package br.edu.ifpb.daca.beans;
 
-import br.edu.ifpb.daca.entities.Sabor;
-import br.edu.ifpb.daca.service.SaborService;
+import br.edu.ifpb.daca.entities.Mesa;
+import br.edu.ifpb.daca.service.MesaService;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import java.util.List;
@@ -12,27 +12,27 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class SaborBean extends AbstractBean implements Serializable {
-
+public class MesaBean extends AbstractBean implements Serializable {
+    
     private static final long serialVersionUID = 1L;
-
-    private List<Sabor> sabores;
-
+    
+    private List<Mesa> mesas;
+    
     @Inject
-    private SaborService saborService;
+    private MesaService mesaService;
 
     @PostConstruct
     public void init() {
-        setSaborList();
+        setMesaList();
     }
 
-    public List<Sabor> getSabores() {
-        return sabores;
+    public List<Mesa> getClientes() {
+        return mesas;
     }
-
-    private void setSaborList() {
+    
+    public void setMesaList() {
         try {
-            sabores = saborService.getAll();
+            mesas = mesaService.getAll();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
