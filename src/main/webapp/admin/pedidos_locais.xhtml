@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <ui:define name="title">
+            Pedidos Locais list
+        </ui:define>
+        <ui:define name="content">
+
+            <p:messages closable="true" showDetail="true" id="messages"/>
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Pedidos Locais" url="#" style="color: #1784C7" />
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
+            <p:fieldset legend="Pedidos Locais">
+                <h:form id="formGerenciar">
+
+                    <p:button icon="ui-icon-plusthick" alt="Novo" 
+                              title="Novo Sabor" value="Novo Pedido" outcome="pedido_local_edit.xhtml" styleClass=".add-btn"/>
+
+                    <p:dataTable id="idTabela" var="pedido" value="#{pedidoLocalBean.pedidos}"
+                                 emptyMessage="Nenhum registro encontrado." reflow="true"
+                                 rows="8" paginator="true" paginatorPosition="bottom"
+                                 styleClass="ui-table-columntoggle" widgetVar="saborTable"
+                                 paginatorAlwaysVisible="false">
+
+                        <p:column filterBy="#{pedido.id}" headerText="ID" width="60">
+                            <h:outputText value="#{pedido.id}" />
+                        </p:column>
+
+                        <p:column filterBy="#{pedido.mesa.descricao}" headerText="Mesa">
+                            <h:outputText value="#{pedido.mesa.descricao}" />
+                        </p:column>
+
+                        <p:column  headerText="Data e Hora">
+                            Dia
+                            <h:outputText value="#{pedido.dataHora}">
+                                <f:convertDateTime pattern=" dd/MM/yyyy" />
+                            </h:outputText>
+                            as
+                            <h:outputText value="#{pedido.dataHora}">
+                                <f:convertDateTime pattern=" HH:mm" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Valor Total">
+                            <h:outputText value="#{pedido.valorTotal}" >
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Gerenciar" width="120">
+                            <!-- Editar -->
+                            <p:button icon="ui-icon-pencil" outcome="pedido_local_edit.xhtml" alt="Editar" title="Editar">
+                                <f:param name="pedido-l" value="#{pedido.id}" />
+                            </p:button>
+
+                            <!-- Deletar -->
+                            <p:button icon="ui-icon-trash" outcome="pedido_delete.xhtml" alt="Deletar" title="Deletar">
+                                <f:param name="pedido" value="#{pedido.id}" />
+                            </p:button>
+                            <!-- Detalhar -->
+                            <p:button icon="ui-icon-search" outcome="pedido_local_detail.xhtml" alt="Detalhes" title="Detalhes">
+                                <f:param name="pedido-l" value="#{pedido.id}" />
+                            </p:button>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+    </ui:composition>
+</html>

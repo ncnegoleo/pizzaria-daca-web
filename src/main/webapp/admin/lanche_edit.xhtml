@@ -4,20 +4,20 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:o="http://omnifaces.org/ui">
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition template="/templates/__commonLayout.xhtml">
 
         <f:metadata>
-            <o:viewParam name="sabor" value="#{saborEdit.sabor}" 
-                         converter="#{saborConverter}"/>
-            <f:event listener="#{saborEdit.preRenderView()}" type="preRenderView" />
+            <o:viewParam name="lanche" value="#{lancheEdit.lanche}" 
+                         converter="#{lancheConverter}"/>
+            <f:event listener="#{lancheEdit.preRenderView()}" type="preRenderView" />
         </f:metadata>
 
         <ui:define name="title">
-            Sabor edit
+            Lanche edit
         </ui:define>
 
         <ui:define name="content">
@@ -28,52 +28,50 @@
             <h:form>
                 <p:breadCrumb homeDisplay="false">
                     <p:menuitem value="Dashboard" url="index.xhtml" />
-                    <p:menuitem value="Sabores" url="sabores.xhtml" />
-                    <p:menuitem value="Cadastro de Sabores" url="#" style="color: #1784C7"/>
+                    <p:menuitem value="Lanches" url="lanches.xhtml" />
+                    <p:menuitem value="Cadastro de Lanches" url="#" style="color: #1784C7"/>
                 </p:breadCrumb>
             </h:form>
 
             <br/>
 
             <h:form id="formEdicao" prependId="false">
-                <p:fieldset legend="Cadastro de Sabores">
+                <p:fieldset legend="Cadastro de Lanches">
                     <p:panelGrid >
 
-                        <p:row  rendered="#{saborEdit.edicaoSabor}" >
+                        <p:row  rendered="#{lancheEdit.edicaoLanche}" >
                             <p:column ><p:outputLabel value="Id"/></p:column>
                             <p:column colspan="5"/>
                         </p:row>
 
-                        <p:row rendered="#{saborEdit.edicaoSabor}">
-                            <p:column><p:inputText value="#{saborEdit.sabor.id}" disabled="true"/></p:column>
+                        <p:row rendered="#{lancheEdit.edicaoLanche}">
+                            <p:column><p:inputText value="#{lancheEdit.lanche.id}" disabled="true"/></p:column>
                             <p:column colspan="5"/>
                         </p:row>
 
                         <p:row>
-                            <p:column colspan="4" ><p:outputLabel for="sabor" value="Sabor:" /></p:column>
-                            <p:column colspan="3"><p:outputLabel value="Disponível?" /></p:column>
+                            <p:column colspan="4" ><p:outputLabel for="descricao" value="Descrição: " /></p:column>
+                            <p:column colspan="3"><p:outputLabel  value="Valor: " /></p:column>
                         </p:row>
 
                         <p:row>
-                            <p:column colspan="4"><p:inputText id="sabor" value="#{saborEdit.sabor.sabor}"
-                                                               label="Sabor" required="true" /></p:column>
-                            <p:column colspan="6" >
-                                <p:selectOneButton value="#{saborEdit.sabor.disponivel}" required="true" styleClass="btn-select">
-                                    <f:selectItem itemLabel="SIM" itemValue="true" />
-                                    <f:selectItem itemLabel="NÃO" itemValue="false" />
-                                </p:selectOneButton>
+                            <p:column colspan="4" style="width: 60%"><p:inputText id="descricao" value="#{lancheEdit.lanche.descricao}"
+                                                               label="Descrição" required="true" /></p:column>
+                            <p:column colspan="4">
+                                <pe:inputNumber id="valor" value="#{lancheEdit.lanche.valorUnitario}"
+                                                label="Valor" required="true" symbol="R$ ">
+                                </pe:inputNumber>
                             </p:column>
                         </p:row>
-
                         <p:row>
                             <p:column>
-                                <p:commandButton id="btnSubmit" action="#{saborEdit.saveSabor}" value="Submit"
+                                <p:commandButton id="btnSubmit" action="#{lancheEdit.saveLanche()}" value="Submit"
                                                  icon="ui-icon-check" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton id="btnCancel" action="sabores.xhtml?faces-redirect=true" value="Cancel"
+                                <h:outputText value=" "/>
+                                <p:commandButton id="btnCancel" action="lanches.xhtml?faces-redirect=true" value="Cancel"
                                                  icon="ui-icon-cancel" immediate="true" />
                             </p:column>
+                            <p:column/>
                             <p:column colspan="5" style="width: 100% !important"/>
                         </p:row>
 

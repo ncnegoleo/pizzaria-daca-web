@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,12 +15,14 @@ import javax.persistence.Table;
 
 @Entity(name = "PedidoLocal_Entity")
 @Table(name = "PEDIDO_LOCAL")
+@DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("PL")
 public class PedidoLocal extends Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pedido_fk", nullable = false)
+    @JoinColumn(name = "pedido_fk", nullable = false)// mudar para mesa_fk
     private Mesa mesa;
 
     public PedidoLocal() {

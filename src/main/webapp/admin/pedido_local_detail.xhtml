@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+        <f:metadata>
+            <o:viewParam name="pedido-l" value="#{pedidoLocalDetail.pedidoLocal}" 
+                         converter="#{pedidoLocalConverter}"/>
+        </f:metadata>
+
+        <ui:define name="title">
+            Pedido Details
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Pedidos Locais" url="pedidos_locais.xhtml" />
+                    <p:menuitem value="Detalhes" url="#" style="color: #1784C7" />
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
+            <p:panelGrid style="width: 100% !important">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">CLIENTE</p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column><h:outputText value="Id: " style="font-weight:bold" /></p:column>
+                    <p:column><h:outputText value="#{pedidoLocalDetail.pedidoLocal.id}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Mesa: " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{pedidoLocalDetail.pedidoLocal.mesa.descricao}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Data-Hora " style="font-weight:bold"/></p:column>  
+                    <p:column>
+                        <h:outputText value="#{pedidoLocalDetail.pedidoLocal.dataHora}">
+                            <f:convertDateTime pattern=" dd/MM/yyyy HH:mm" />
+                        </h:outputText>
+                    </p:column>
+                </p:row>
+
+                <p:column><h:outputText value="Lanches: " style="font-weight:bold"/></p:column>
+                <p:column>
+                    <ui:repeat value="#{pedidoLocalDetail.pedidoLocal.itensPedidos}" var="itens">
+                        <li>
+                            <h:outputText value="#{itens.quantidade} "/>
+                            <h:outputText value="#{itens.lanche.descricao} no valor de "/>
+                            <h:outputText value="#{itens.lanche.valorUnitario}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                            </h:outputText>
+                            <h:outputText value=". Subtotal: "/>
+                            <h:outputText value="#{itens.subtotal}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                            </h:outputText>
+                        </li>
+                    </ui:repeat>
+                </p:column>
+
+                <p:row>
+                    <p:column><h:outputText value="Valor Total: " style="font-weight:bold"/></p:column>  
+                    <p:column>
+                        <h:outputText value="#{pedidoLocalDetail.pedidoLocal.valorTotal}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                        </h:outputText>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <h:form>
+                            <p:commandButton id="btnCancel" action="#{pedidoLocalDetail.cancel}" value="Cancel"
+                                             icon="ui-icon-cancel" />
+                        </h:form>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </ui:define>
+    </ui:composition>
+</html>

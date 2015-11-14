@@ -92,7 +92,7 @@ public class LancheService implements Serializable {
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
-    public List<Lanche> getAl() throws DacaServiceException {
+    public List<Lanche> getAll() throws DacaServiceException {
         try {
             return lancheDao.getAll();
         } catch (DacaPersistenceException ex) {

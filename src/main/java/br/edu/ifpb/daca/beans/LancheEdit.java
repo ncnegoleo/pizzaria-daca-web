@@ -38,10 +38,10 @@ public class LancheEdit extends AbstractBean implements Serializable {
         try {
             if (lanche.getId() != null) {
                 lancheService.update(lanche);
-                successMessageReport("Cliente atualizado com sucesso!");
+                successMessageReport("Lanche atualizado com sucesso!");
             } else {
                 lancheService.save(lanche);
-                successMessageReport("Cliente salvo com sucesso!");
+                successMessageReport("Lanche salvo com sucesso!");
             }
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
@@ -56,11 +56,11 @@ public class LancheEdit extends AbstractBean implements Serializable {
         return lanche.getId() != null;
     }
 
-    public Lanche getCliente() {
+    public Lanche getLanche() {
         return lanche;
     }
 
-    public void setCliente(Lanche lanche) {
+    public void setLanche(Lanche lanche) {
         this.lanche = lanche;
     }
 }

@@ -36,7 +36,7 @@ public class LancheDelete extends AbstractBean implements Serializable {
         try {
             conversation.end();
             lancheService.delete(lanche);
-            successMessageReport("Cliente removido com sucesso!");
+            successMessageReport("Lanche removido com sucesso!");
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }

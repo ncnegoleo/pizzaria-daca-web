@@ -82,19 +82,17 @@ public class LancheDao extends DAO implements Persistible<Lanche, Long> {
     }
 
     public List<Lanche> getAllBySubClass(Class entity) throws DacaPersistenceException {
-        {
-            EntityManager em = getEntityManager();
-            List<Lanche> resultado = null;
-            try {
-                TypedQuery<Lanche> query = em.createQuery(
-                        "SELECT l FROM Lanche_Entity l where TYPE(l) = :entity", Lanche.class);
-                query.setParameter("entity", entity);
-                resultado = query.getResultList();
-            } catch (PersistenceException pe) {
-                throw new DacaPersistenceException("Ocorreu algum problema em "
-                        + "recuperar os lanches", pe);
-            }
-            return resultado;
+        EntityManager em = getEntityManager();
+        List<Lanche> resultado = null;
+        try {
+            TypedQuery<Lanche> query = em.createQuery(
+                    "SELECT l FROM Lanche_Entity l where TYPE(l) = :entity", Lanche.class);
+            query.setParameter("entity", entity);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os lanches", pe);
         }
+        return resultado;
     }
 }

@@ -24,8 +24,18 @@
 
             <p:messages autoUpdate="true" showDetail="true"/>
 
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Tamanhos" url="tamanhos.xhtml" />
+                    <p:menuitem value="Cadastro de Tamanhos" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
             <h:form id="formEdicao" prependId="false">
-                <p:fieldset >
+                <p:fieldset  legend="Cadastro de Tamanhos">
                     <p:panelGrid >
 
                         <p:row  rendered="#{tamanhoEdit.edicaoTamanho}" >
@@ -54,17 +64,17 @@
                             </p:column>
                         </p:row>
 
-                            <p:row>
-                                <p:column>
-                                    <p:commandButton id="btnSubmit" action="#{tamanhoEdit.saveTamanho}" value="Submit"
-                                                     icon="ui-icon-check" />
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton id="btnCancel" action="tamanhos.xhtml?faces-redirect=true" value="Cancel"
-                                                     icon="ui-icon-cancel" immediate="true" />
-                                </p:column>
-                                <p:column colspan="5" style="width: 100% !important"/>
-                            </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="btnSubmit" action="#{tamanhoEdit.saveTamanho}" value="Submit"
+                                                 icon="ui-icon-check" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="btnCancel" action="tamanhos.xhtml?faces-redirect=true" value="Cancel"
+                                                 icon="ui-icon-cancel" immediate="true" />
+                            </p:column>
+                            <p:column colspan="5" style="width: 100% !important"/>
+                        </p:row>
 
                     </p:panelGrid>
                 </p:fieldset>

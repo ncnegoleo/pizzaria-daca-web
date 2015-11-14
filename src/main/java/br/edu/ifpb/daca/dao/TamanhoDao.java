@@ -82,16 +82,17 @@ public class TamanhoDao extends DAO implements Persistible<Tamanho, Long> {
 
     public boolean isInPizzaAssociation(Tamanho tamanho) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-        List<Pizza> resultado = null;
+        Boolean resultado = null;
         try {
-            TypedQuery<Pizza> query = em.createQuery(
-                    "SELECT p FROM Pizza_Entity p WHERE :tamanho = p.tamanho", Pizza.class);
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(pizza) FROM Pizza_Entity pizza WHERE :tamanho = pizza.tamanho", Long.class);
             query.setParameter("tamanho", tamanho);
-            resultado = query.getResultList();
-            return resultado.size() > 0;
+            resultado = query.getSingleResult() > 0;
         } catch (PersistenceException pe) {
-            throw new DacaPersistenceException("Ocorreu algum problema em "
-                    + "recuperar os lanches", pe);
+            throw new DacaPersistenceException("Ocorreu algum problema "
+                    + "na contagem", pe);
         }
+        
+        return resultado;
     }
 }

@@ -17,6 +17,18 @@
             Tamanho delete
         </ui:define>
         <ui:define name="content">
+            <p:messages closable="true" showDetail="true" id="messages"/>
+            
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Sabores" url="sabores.xhtml" />
+                    <p:menuitem value="Deletar" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
             <h:form>
                 <p:panelGrid columns="1">
                     <f:facet name="header">

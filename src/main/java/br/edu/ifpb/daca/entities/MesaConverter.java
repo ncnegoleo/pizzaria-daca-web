@@ -1,6 +1,6 @@
 package br.edu.ifpb.daca.entities;
 
-import br.edu.ifpb.daca.service.ClienteService;
+import br.edu.ifpb.daca.service.MesaService;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -14,11 +14,11 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-@FacesConverter("clienteConverter")
-public class ClienteConverter implements Converter {
+@FacesConverter("mesaConverter")
+public class MesaConverter implements Converter {
 
     @Inject
-    ClienteService clienteService;
+    MesaService mesaService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -28,7 +28,7 @@ public class ClienteConverter implements Converter {
         long id = Long.parseLong(value);
 
         try {
-            return clienteService.getById(id);
+            return mesaService.getById(id);
         } catch (DacaServiceException ex) {
             String msgErroStr = String.format(
                     "Erro de conversão! Não foi possível realizar a conversão da string '%s' para o tipo esperado.",
@@ -43,9 +43,9 @@ public class ClienteConverter implements Converter {
         if (value == null) {
             return null;
         }
-        Long id = ((Cliente) value).getId();
+
+        Long id = ((Mesa) value).getId();
 
         return (id != null) ? id.toString() : null;
     }
-
 }

@@ -24,7 +24,7 @@
             <p:fieldset legend="Lanches">
                 <h:form id="formGerenciar">
                     <p:button icon="ui-icon-plusthick"  alt="Novo" 
-                              title="Novo Lanche" value="Novo Lanche" styleClass=".add-btn"/>
+                              title="Novo Lanche" value="Novo Lanche" outcome="lanche_edit.xhtml" styleClass=".add-btn"/>
                     <p:button icon="ui-icon-plusthick"  alt="Novo" 
                               title="Nova Pizza" value="Nova Pizza" outcome="pizza_edit.xhtml" style="margin-left: 5px !important" styleClass=".add-btn"/>
 
@@ -59,7 +59,7 @@
                             </p:button>
 
                             <!-- Editar -->
-                            <p:button rendered="#{!lancheBean.isPizza(lanche)}" icon="ui-icon-pencil"  alt="Editar" title="Editar">
+                            <p:button rendered="#{!lancheBean.isPizza(lanche)}" icon="ui-icon-pencil" outcome="lanche_edit.xhtml" alt="Editar" title="Editar">
                                 <f:param name="lanche" value="#{lanche.id}" />
                             </p:button>
 

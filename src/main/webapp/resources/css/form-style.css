@@ -16,6 +16,16 @@ ui-panelgrid-cell ui-widget-header {
     //margin-left: -3px !important;
 }
 
+.ui-slider-horizontal .ui-slider-handle {
+    height: 18px !important;
+    width: 20px !important;
+}
+
+.ui-slider-horizontal {
+    height: 14px !important;
+    width: 99%;
+}
+
 .btn-select .ui-button .ui-button-text {
     padding: 6px 16px;
     font-size: 0.7rem;

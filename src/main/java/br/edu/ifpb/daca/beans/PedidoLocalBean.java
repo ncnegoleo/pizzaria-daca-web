@@ -1,7 +1,7 @@
 package br.edu.ifpb.daca.beans;
 
-import br.edu.ifpb.daca.entities.Mesa;
-import br.edu.ifpb.daca.service.MesaService;
+import br.edu.ifpb.daca.entities.PedidoLocal;
+import br.edu.ifpb.daca.service.PedidoService;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.io.Serializable;
 import java.util.List;
@@ -12,38 +12,33 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class MesaBean extends AbstractBean implements Serializable {
-    
+public class PedidoLocalBean extends AbstractBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
-    private List<Mesa> mesas;
-    
+
+    private List<PedidoLocal> pedidos;
+
     @Inject
-    private MesaService mesaService;
+    PedidoService pedidoService;
 
     @PostConstruct
     public void init() {
-        setMesaList();
+        setPedidoLocalList();
     }
 
-    public List<Mesa> getClientes() {
-        return mesas;
+    public List<PedidoLocal> getPedidos() {
+        return pedidos;
     }
-    
-    public void setMesaList() {
+
+    public void setPedidos(List<PedidoLocal> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    private void setPedidoLocalList() {
         try {
-            mesas = mesaService.getAll();
+            pedidos = pedidoService.getAllgetAllPedidoLocal();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
     }
-
-    public List<Mesa> getMesas() {
-        return mesas;
-    }
-
-    public void setMesas(List<Mesa> mesas) {
-        this.mesas = mesas;
-    }
-    
 }

@@ -4,9 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:o="http://omnifaces.org/ui">
+      xmlns:o="http://omnifaces.org/ui"
+       xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition template="/templates/__commonLayout.xhtml">
 
@@ -23,6 +23,16 @@
             <h:outputStylesheet library="css" name="form-style.css"/>
 
             <p:messages closable="true" showDetail="true" id="messages" autoUpdate="true"/>
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Lanches" url="lanches.xhtml" />
+                    <p:menuitem value="Cadastro de Pizzas" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
 
             <h:form id="formEdicao" prependId="false">
                 <p:fieldset legend="Cadastro de Pizzas">
@@ -50,13 +60,15 @@
                             <p:column colspan="3"><p:outputLabel value="Valor: *"/></p:column>
                             <p:column/>
                         </p:row>
-                        
+
                         <p:row>
-                            <p:column colspan="3"><p:inputText value="#{pizzaEdit.pizza.valorUnitario}" /></p:column>
+                            <p:column colspan="3">
+                                <pe:inputNumber symbol="R$ " value="#{pizzaEdit.pizza.valorUnitario}" />
+                            </p:column>
                             <p:column/>
                             <p:column />
                         </p:row>
-                        
+
                         <p:row>
                             <p:column colspan="2"><p:outputLabel value="Sabores: *"/></p:column>
                             <p:column />
@@ -77,8 +89,8 @@
                             </p:column>
                             <p:column style="width: 3%">
                                 <p:commandButton id="btnUpdate" update="display"
-                                        icon="ui-icon-refresh" title="Atualizar"  alt="Atulizar" 
-                                        style="margin-top: -3px !important"/>
+                                                 icon="ui-icon-refresh" title="Atualizar"  alt="Atulizar" 
+                                                 style="margin-top: -3px !important"/>
                             </p:column>
                             <p:column rowspan="3" style="width: 40%">
                                 <p:selectOneMenu id="tamanho" value="#{pizzaEdit.pizza.tamanho}"

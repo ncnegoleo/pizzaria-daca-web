@@ -111,16 +111,17 @@ public class SaborDao extends DAO implements Persistible<Sabor, Long> {
     
     public boolean isInPizzaAssociation(Sabor sabor) throws DacaPersistenceException {
         EntityManager em = getEntityManager();
-            List<Pizza> resultado = null;
+            Boolean resultado = null;
             try {
-                TypedQuery<Pizza> query = em.createQuery(
-                        "SELECT p FROM Pizza_Entity p WHERE :sabor MEMBER OF p.sabores", Pizza.class);
+                TypedQuery<Long> query = em.createQuery(
+                        "SELECT COUNT(pizza) FROM Pizza_Entity pizza WHERE :sabor MEMBER OF pizza.sabores", Long.class);
                 query.setParameter("sabor", sabor);
-                resultado = query.getResultList();
-                return resultado.size() > 0;
+                resultado = query.getSingleResult() > 0;
             } catch (PersistenceException pe) {
-                throw new DacaPersistenceException("Ocorreu algum problema em "
-                        + "recuperar os lanches", pe);
+                throw new DacaPersistenceException("Ocorreu algum problema "
+                        + "na contagem", pe);
             }
+            
+            return resultado;
     }
 }

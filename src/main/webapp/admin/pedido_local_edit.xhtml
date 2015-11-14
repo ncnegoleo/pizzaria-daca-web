@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+
+        <f:metadata>
+            <o:viewParam name="pedido-l" value="#{pedidoLocalEdit.pedidoLocal}" 
+                         converter="#{pedidoConverter}"/>
+            <f:event listener="#{pedidoLocalEdit.preRenderView}" type="preRenderView" />
+        </f:metadata>
+
+        <ui:define name="title">
+            Pedido Local edit
+        </ui:define>
+
+        <ui:define name="content">
+            <h:outputStylesheet library="css" name="form-style.css"/>
+
+            <p:messages autoUpdate="true" showDetail="true" closable="true"/>
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Pedidos Locais" url="pedidos_locais.xhtml" />
+                    <p:menuitem value="Cadastro de Pedidos Locais" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
+            <h:form id="formEdicao" prependId="false">
+                <p:fieldset  legend="Cadastro de Pedidos Locais">
+                    <p:panelGrid >
+
+                        <p:row >
+                            <p:column >
+                                <p:outputLabel value="Id" rendered="#{pedidoLocalEdit.edicaoPedido}"/>
+                            </p:column>
+                            <p:column/>
+                        </p:row>
+
+                        <p:row >
+                            <p:column style="width: 80% !important">
+                                <p:inputText value="#{pedidoLocalEdit.pedidoLocal.id}" disabled="true" 
+                                             style="width: 50% !important" rendered="#{pedidoLocalEdit.edicaoPedido}"/>
+                            </p:column>
+                            <p:column/>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Mesa:*"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Data e Hora do pedido: "/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:selectOneMenu id="mesa" value="#{pedidoLocalEdit.pedidoLocal.mesa}"
+                                                 style="font-size: 0.8rem ;width: 40%; height: 28px !important;" filter="true">
+                                    <f:selectItems value="#{pedidoLocalEdit.mesas}" var="mesa" 
+                                                   itemValue="#{mesa}" itemLabel="#{mesa.descricao}"/>
+                                    <f:converter converterId="mesaConverter" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidoLocalEdit.pedidoLocal.dataHora}">
+                                    <f:convertDateTime pattern=" dd/MM/yyyy HH:mm" />
+                                </h:outputText>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:fieldset>
+                                    <p:panelGrid>
+                                        <p:row>
+                                            <p:column><h:outputText value="Lanche: " style="font-size: 0.8rem"/></p:column>
+                                            <p:column><h:outputText value="Quantidade: " style="font-size: 0.8rem"/></p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:selectOneMenu id="selectedLanche" value="#{pedidoLocalEdit.selectedLanche}"
+                                                                 style="font-size: 0.8rem;width: 90%; height: 28px !important;" filter="true">
+                                                    <f:selectItems value="#{pedidoLocalEdit.lanches}" var="sltdlanche" 
+                                                                   itemValue="#{sltdlanche}" itemLabel="#{sltdlanche.descricao}"/>
+                                                    <f:converter converterId="lancheConverter" />
+                                                </p:selectOneMenu>
+                                            </p:column>
+                                            <p:column>
+                                                <p:inputText id="txt1" value="#{pedidoLocalEdit.quantidade}" 
+                                                             style="font-size: 0.8rem; margin-top: -20px !important;"/>
+                                                <p:slider for="txt1" maxValue="10" minValue="1"/>
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:commandButton id="btnAdd"  value="Add" action="#{pedidoLocalEdit.addLanche()}"
+                                                                 update="lanchesFds" icon="ui-icon-plusthick" title="Atualizar"  alt="Atulizar"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="2" >
+                                <p:fieldset id="lanchesFds" style="font-size: 0.9rem !important">
+                                    <p:dataTable id="lanchesTbl" value="#{pedidoLocalEdit.pedidoLocal.itensPedidos}" var="itens"
+                                                 reflow="true" style="width: 100% !important">
+                                        <p:column headerText="Lanche">
+                                            <h:outputText value="#{itens.lanche.descricao}" />
+                                        </p:column>
+                                        <p:column headerText="Quantidade">
+                                            <h:outputText value="#{itens.quantidade}" />
+                                        </p:column>
+                                        <p:column headerText="Valor Unitário">
+                                            <h:outputText value="#{itens.subtotal}" >
+                                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Remover" style="width: 100px !important">
+                                            <center>
+                                                <p:commandButton icon="ui-icon-close" title="Remover lanche"
+                                                                 action="#{pedidoLocalEdit.removeLanche(itens)}" 
+                                                                 update="lanchesFds" />
+                                            </center>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <br/>
+                                    <h:outputText value="Valor Total: R$ #{pedidoLocalEdit.pedidoLocal.valorTotal}" 
+                                                  style="font-weight: bold;text-decoration: underline;">
+                                    </h:outputText>
+                                </p:fieldset>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:commandButton id="btnSubmit" value="Submit" action="#{pedidoLocalEdit.savePedido}"
+                                                 icon="ui-icon-check" />
+                                <h:outputText value=" "/>
+                                <p:commandButton id="btnCancel" action="pedidos_locais.xhtml?faces-redirect=true" value="Cancel"
+                                                 icon="ui-icon-cancel" immediate="true" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+                </p:fieldset>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

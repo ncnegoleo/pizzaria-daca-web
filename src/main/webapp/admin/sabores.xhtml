@@ -14,6 +14,15 @@
 
             <p:messages closable="true" showDetail="true" id="messages"/>
 
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Sabores" url="#" style="color: #1784C7" />
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
             <p:fieldset legend="Sabores">
                 <h:form id="formGerenciar">
 
@@ -25,7 +34,7 @@
                                  rows="8" paginator="true" paginatorPosition="bottom"
                                  styleClass="ui-table-columntoggle" widgetVar="saborTable"
                                  paginatorAlwaysVisible="false">
-                        
+
                         <p:column filterBy="#{sabor.id}" headerText="ID" width="60">
                             <h:outputText value="#{sabor.id}" />
                         </p:column>
@@ -47,15 +56,15 @@
                         </p:column>
 
                         <p:column headerText="Gerenciar" width="110">
-                                <!-- Editar -->
-                                <p:button icon="ui-icon-pencil" outcome="sabor_edit.xhtml" alt="Editar" title="Editar">
-                                    <f:param name="sabor" value="#{sabor.id}" />
-                                </p:button>
+                            <!-- Editar -->
+                            <p:button icon="ui-icon-pencil" outcome="sabor_edit.xhtml" alt="Editar" title="Editar">
+                                <f:param name="sabor" value="#{sabor.id}" />
+                            </p:button>
 
-                                <!-- Deletar -->
-                                <p:button icon="ui-icon-trash" outcome="sabor_delete.xhtml" alt="Deletar" title="Deletar">
-                                    <f:param name="sabor" value="#{sabor.id}" />
-                                </p:button>
+                            <!-- Deletar -->
+                            <p:button icon="ui-icon-trash" outcome="sabor_delete.xhtml" alt="Deletar" title="Deletar">
+                                <f:param name="sabor" value="#{sabor.id}" />
+                            </p:button>
                         </p:column>
                     </p:dataTable>
                 </h:form>

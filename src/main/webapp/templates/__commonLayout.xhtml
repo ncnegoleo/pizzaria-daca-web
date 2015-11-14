@@ -65,9 +65,8 @@
                                 <!-- <span class="count">3</span> // USAR CASO O SISTEMA LIDE COM PEDIDOS DE CLIENTES USUARIOS-->
                             </a>
                             <ul>
-                                <li><a href="#0">Novo</a>
-                                </li>
-                                <li><a href="#0">Pesquisar</a></li>
+                                <li><p:link outcome="pedido_local_edit" value="Novo"/></li>
+                                <li><p:link outcome="pedidos_locais"  value="Pesquisar"/></li>
                             </ul>
                         </li>
                         <!--END PEDIDO LOCAL-->
@@ -112,12 +111,12 @@
                         </li>
                         <!--END CLIENTES-->
 
-                        <!--USUARIOS-->
+                        <!--MESAS-->
                         <li class="has-button-link person">
-                            <h:link value="Mesas"/>
+                            <h:link value="Mesas"  outcome="mesas"/>
                         </li>
                     </ul>
-                    <!--END USUARIOS-->
+                    <!--END MESASES-->
 
                     <br/>
                 </nav>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition template="/templates/__commonLayout.xhtml">
+
+        <f:metadata>
+            <o:viewParam name="mesa" value="#{mesaEdit.mesa}" 
+                         converter="#{mesaConverter}"/>
+            <f:event listener="#{mesaEdit.preRenderView}" type="preRenderView" />
+        </f:metadata>
+
+        <ui:define name="title">
+            Mesa edit
+        </ui:define>
+
+        <ui:define name="content">
+            <h:outputStylesheet library="css" name="form-style.css"/>
+
+            <p:messages autoUpdate="true" showDetail="true"/>
+
+            <h:form>
+                <p:breadCrumb homeDisplay="false">
+                    <p:menuitem value="Dashboard" url="index.xhtml" />
+                    <p:menuitem value="Mesas" url="mesas.xhtml" />
+                    <p:menuitem value="Cadastro de Mesas" url="#" style="color: #1784C7"/>
+                </p:breadCrumb>
+            </h:form>
+
+            <br/>
+
+            <h:form id="formEdicao" prependId="false">
+                <p:fieldset  legend="Cadastro de Tamanhos">
+                    <p:panelGrid >
+
+                        <p:row  rendered="#{mesaEdit.edicaoMesa}" >
+                            <p:column colspan="2">
+                                <p:outputLabel value="Id"/>
+                            </p:column>
+                            <p:column />
+                            <p:column />
+                        </p:row>
+
+                        <p:row rendered="#{mesaEdit.edicaoMesa}">
+                            <p:column colspan="2">
+                                <p:inputText value="#{mesaEdit.mesa.id}" disabled="true"/>
+                            </p:column>
+                            <p:column />
+                            <p:column />
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3" ><p:outputLabel for="mesa" value="Descrição da Mesa:" /></p:column>
+                            <p:column />
+
+                        </p:row>
+
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:inputText id="mesa" value="#{mesaEdit.mesa.descricao}"
+                                             label="Mesa" required="true" /></p:column>
+                            <p:column />
+
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="btnSubmit" action="#{mesaEdit.saveMesa}" value="Submit"
+                                                 icon="ui-icon-check" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="btnCancel" action="mesas.xhtml?faces-redirect=true" value="Cancel"
+                                                 icon="ui-icon-cancel" immediate="true" />
+                            </p:column>
+                            <p:column style="width: 30% !important"/>
+                            <p:column style="width: 60% !important"/>
+                        </p:row>
+
+                    </p:panelGrid>
+                </p:fieldset>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

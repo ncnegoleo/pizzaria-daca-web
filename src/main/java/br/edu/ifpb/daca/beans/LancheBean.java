@@ -19,22 +19,13 @@ public class LancheBean extends AbstractBean implements Serializable {
 
     private List<Lanche> lanches;
     private Pizza selectedPizza;
-    
+
     @Inject
     private LancheService lancheService;
 
     @PostConstruct
     public void init() {
         setPizzaList();
-    }
-
-    public void printList() {
-        System.out.println("pizzas");
-        lanches.stream().forEach((pizza) -> {
-            System.out.println(pizza);
-            if (pizza instanceof Pizza) {System.out.println("É poxa");}
-        });
-
     }
 
     public List<Lanche> getLanches() {
@@ -48,16 +39,17 @@ public class LancheBean extends AbstractBean implements Serializable {
     public void setSelectedPizza(Pizza selectedPizza) {
         this.selectedPizza = selectedPizza;
     }
-    
+
     private void setPizzaList() {
         try {
-            lanches = lancheService.getAl();
+            lanches = lancheService.getAll();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
     }
-    
+
     public boolean isPizza(Lanche lanche) {
         return lanche instanceof Pizza;
     }
+
 }

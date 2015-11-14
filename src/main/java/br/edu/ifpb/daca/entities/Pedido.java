@@ -8,6 +8,9 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,6 +26,8 @@ import javax.persistence.TemporalType;
 @Entity(name = "Pedido_Entity")
 @Table(name = "PEDIDO")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("P")
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,11 +47,11 @@ public class Pedido implements Serializable {
     protected List<ItensPedido> itensPedidos;
 
     public Pedido() {
-        itensPedidos = new ArrayList<ItensPedido>();
+        
     }
 
     public Pedido(Date dataHora) {
-        itensPedidos = new ArrayList<ItensPedido>();
+        
         this.dataHora = dataHora;
     }
 

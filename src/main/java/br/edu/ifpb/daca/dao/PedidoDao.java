@@ -1,6 +1,9 @@
 package br.edu.ifpb.daca.dao;
 
+import br.edu.ifpb.daca.entities.ItensPedido;
 import br.edu.ifpb.daca.entities.Pedido;
+import br.edu.ifpb.daca.entities.PedidoDelivery;
+import br.edu.ifpb.daca.entities.PedidoLocal;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,6 +75,49 @@ public class PedidoDao extends DAO implements Persistible<Pedido, Long> {
         try {
             TypedQuery<Pedido> query = em.createQuery(
                     "SELECT p FROM Pedido_Entity p", Pedido.class);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os pedidos", pe);
+        }
+        return resultado;
+    }
+
+    public List<Pedido> getAllBySubClass(Class entity) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<Pedido> resultado = null;
+        try {
+            TypedQuery<Pedido> query = em.createQuery(
+                    "SELECT p FROM Pedido_Entity p where TYPE(p) = :entity", Pedido.class);
+            query.setParameter("entity", entity);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os pedidos", pe);
+        }
+        return resultado;
+    }
+
+    public List<PedidoLocal> getAllPedidoLocal() throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<PedidoLocal> resultado = null;
+        try {
+            TypedQuery<PedidoLocal> query = em.createQuery(
+                    "SELECT pl FROM PedidoLocal_Entity pl", PedidoLocal.class);
+            resultado = query.getResultList();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar os pedidos", pe);
+        }
+        return resultado;
+    }
+
+    public List<PedidoDelivery> getAllPedidoDelivery() throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        List<PedidoDelivery> resultado = null;
+        try {
+            TypedQuery<PedidoDelivery> query = em.createQuery(
+                    "SELECT pd FROM PedidoDelivery_Entity pd", PedidoDelivery.class);
             resultado = query.getResultList();
         } catch (PersistenceException pe) {
             throw new DacaPersistenceException("Ocorreu algum problema em "

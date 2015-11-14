@@ -3,6 +3,9 @@ package br.edu.ifpb.daca.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -10,6 +13,8 @@ import javax.persistence.Table;
 
 @Entity(name = "PedidoDelivery_Entity")
 @Table(name = "PEDIDO_DELIVERY")
+@DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue("PD")
 public class PedidoDelivery extends Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
