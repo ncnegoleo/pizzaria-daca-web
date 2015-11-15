@@ -37,7 +37,13 @@
                                 </a>
                                 <ul>
                                     <li><a href="#0">Minha Conta</a></li>
-                                    <li><a href="#0">Sair</a></li>
+                                    <li>
+                                    <h:form>
+                                    <p:commandLink 
+                                        action="#{logout.efetuarLogout}" 
+                                        ajax="false" value="Sair" />
+                                    </h:form>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

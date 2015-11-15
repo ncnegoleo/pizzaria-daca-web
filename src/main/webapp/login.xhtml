@@ -11,13 +11,15 @@
     <h:body>
         <p:graphicImage styleClass="img-logo" library="layout/images" name="pizza-logo.svg"/>
         <p:fieldset style="height: 20em">
-            <p:panelGrid columns="1" style="width: 100%;">
-                <h:outputText value="Login"/>
-                <p:inputText style="width: 98%"/>
-                <h:outputText value="Password"/>
-                <p:password style="width: 98%"/>
-                <p:commandButton value="Entrar" style="float: right; width: 100px"/>
-            </p:panelGrid>
+            <h:form id="formLogin" prependId="false" onsubmit="action = 'j_security_check';">
+                <p:panelGrid columns="1" style="width: 100%;">
+                    <h:outputText value="Login"/>
+                    <h:inputText id="j_username" style="width: 98%"/>
+                    <h:outputText value="Password"/>
+                    <h:inputSecret id="j_password"  style="width: 98%"/>
+                    <p:commandButton id="btnLogin" value="Entrar" ajax="false" style="float: right; width: 100px"/>
+                </p:panelGrid>
+            </h:form>
             <center style="margin-top: 7em">
                 <a href="#0" style="font-size: 0.9rem">Suporte</a>
             </center>
