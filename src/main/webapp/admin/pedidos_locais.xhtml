@@ -27,12 +27,12 @@
                 <h:form id="formGerenciar">
 
                     <p:button icon="ui-icon-plusthick" alt="Novo" 
-                              title="Novo Sabor" value="Novo Pedido" outcome="pedido_local_edit.xhtml" styleClass=".add-btn"/>
+                              title="Novo Pedido" value="Novo Pedido" outcome="pedido_local_edit.xhtml" styleClass=".add-btn"/>
 
                     <p:dataTable id="idTabela" var="pedido" value="#{pedidoLocalBean.pedidos}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"
-                                 styleClass="ui-table-columntoggle" widgetVar="saborTable"
+                                 styleClass="ui-table-columntoggle"
                                  paginatorAlwaysVisible="false">
 
                         <p:column filterBy="#{pedido.id}" headerText="ID" width="60">

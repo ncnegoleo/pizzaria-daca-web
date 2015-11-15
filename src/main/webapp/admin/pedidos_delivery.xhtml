@@ -17,7 +17,7 @@
             <h:form>
                 <p:breadCrumb homeDisplay="false">
                     <p:menuitem value="Dashboard" url="index.xhtml" />
-                    <p:menuitem value="Pedidos Delivey" url="#" style="color: #1784C7" />
+                    <p:menuitem value="Pedidos Delivery" url="#" style="color: #1784C7" />
                 </p:breadCrumb>
             </h:form>
 
@@ -27,12 +27,12 @@
                 <h:form id="formGerenciar">
 
                     <p:button icon="ui-icon-plusthick" alt="Novo" 
-                              title="Novo Sabor" value="Novo Pedido" outcome="pedido_local_edit.xhtml" styleClass=".add-btn"/>
+                              title="Novo Pedido" value="Novo Pedido" outcome="pedido_delivery_edit.xhtml" styleClass=".add-btn"/>
 
                     <p:dataTable id="idTabela" var="pedido" value="#{pedidoDeliveryBean.pedidos}"
                                  emptyMessage="Nenhum registro encontrado." reflow="true"
                                  rows="8" paginator="true" paginatorPosition="bottom"
-                                 styleClass="ui-table-columntoggle" widgetVar="saborTable"
+                                 styleClass="ui-table-columntoggle"
                                  paginatorAlwaysVisible="false">
 
                         <p:column filterBy="#{pedido.id}" headerText="ID" width="60">
@@ -66,8 +66,8 @@
 
                         <p:column headerText="Gerenciar" width="120">
                             <!-- Editar -->
-                            <p:button icon="ui-icon-pencil" alt="Editar" title="Editar">
-                                <f:param name="pedido-l" value="#{pedido.id}" />
+                            <p:button icon="ui-icon-pencil" outcome="pedido_delivery_edit.xhtml" alt="Editar" title="Editar">
+                                <f:param name="pedido-d" value="#{pedido.id}" />
                             </p:button>
 
                             <!-- Deletar -->
@@ -75,8 +75,8 @@
                                 <f:param name="pedido" value="#{pedido.id}" />
                             </p:button>
                             <!-- Detalhar -->
-                            <p:button icon="ui-icon-search" alt="Detalhes" title="Detalhes">
-                                <f:param name="pedido-l" value="#{pedido.id}" />
+                            <p:button icon="ui-icon-search" outcome="pedido_delivery_detail.xhtml" alt="Detalhes" title="Detalhes">
+                                <f:param name="pedido-d" value="#{pedido.id}" />
                             </p:button>
                         </p:column>
                     </p:dataTable>

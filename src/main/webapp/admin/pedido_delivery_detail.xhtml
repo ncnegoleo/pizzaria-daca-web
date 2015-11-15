@@ -9,8 +9,8 @@
 
     <ui:composition template="/templates/__commonLayout.xhtml">
         <f:metadata>
-            <o:viewParam name="pedido-l" value="#{pedidoLocalDetail.pedidoLocal}" 
-                         converter="#{pedidoLocalConverter}"/>
+            <o:viewParam name="pedido-d" value="#{pedidoDeliveryDetail.pedidoDelivery}" 
+                         converter="#{pedidoDeliveryConverter}"/>
         </f:metadata>
 
         <ui:define name="title">
@@ -22,7 +22,7 @@
             <h:form>
                 <p:breadCrumb homeDisplay="false">
                     <p:menuitem value="Dashboard" url="index.xhtml" />
-                    <p:menuitem value="Pedidos Locais" url="pedidos_locais.xhtml" />
+                    <p:menuitem value="Pedidos Delivery" url="pedidos_delivery.xhtml" />
                     <p:menuitem value="Detalhes" url="#" style="color: #1784C7" />
                 </p:breadCrumb>
             </h:form>
@@ -38,18 +38,32 @@
 
                 <p:row>
                     <p:column><h:outputText value="Id: " style="font-weight:bold" /></p:column>
-                    <p:column><h:outputText value="#{pedidoLocalDetail.pedidoLocal.id}"/></p:column>
+                    <p:column><h:outputText value="#{pedidoDeliveryDetail.pedidoDelivery.id}"/></p:column>
                 </p:row>
 
                 <p:row>
-                    <p:column><h:outputText value="Mesa: " style="font-weight:bold"/></p:column>  
-                    <p:column><h:outputText value="#{pedidoLocalDetail.pedidoLocal.mesa.descricao}"/></p:column>
+                    <p:column><h:outputText value="Cliente " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{pedidoDeliveryDetail.pedidoDelivery.cliente.nome}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Telefone: " style="font-weight:bold"/></p:column>  
+                    <p:column><h:outputText value="#{pedidoDeliveryDetail.pedidoDelivery.cliente.telefone}"/></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><h:outputText value="Endereço: " style="font-weight:bold"/></p:column>  
+                    <p:column>
+                        <h:outputText value="Rua #{pedidoDeliveryDetail.pedidoDelivery.cliente.endereco.rua}, "/>
+                        <h:outputText value="número #{pedidoDeliveryDetail.pedidoDelivery.cliente.endereco.numero}, "/>
+                        <h:outputText value="bairro #{pedidoDeliveryDetail.pedidoDelivery.cliente.endereco.bairro}... "/>
+                    </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column><h:outputText value="Data-Hora " style="font-weight:bold"/></p:column>  
                     <p:column>
-                        <h:outputText value="#{pedidoLocalDetail.pedidoLocal.dataHora}">
+                        <h:outputText value="#{pedidoDeliveryDetail.pedidoDelivery.dataHora}">
                             <f:convertDateTime pattern=" dd/MM/yyyy HH:mm" />
                         </h:outputText>
                     </p:column>
@@ -57,7 +71,7 @@
 
                 <p:column><h:outputText value="Lanches: " style="font-weight:bold"/></p:column>
                 <p:column>
-                    <ui:repeat value="#{pedidoLocalDetail.pedidoLocal.itensPedidos}" var="itens">
+                    <ui:repeat value="#{pedidoDeliveryDetail.pedidoDelivery.itensPedidos}" var="itens">
                         <li>
                             <h:outputText value="#{itens.quantidade} "/>
                             <h:outputText value="#{itens.lanche.descricao} no valor de "/>
@@ -75,7 +89,7 @@
                 <p:row>
                     <p:column><h:outputText value="Valor Total: " style="font-weight:bold"/></p:column>  
                     <p:column>
-                        <h:outputText value="#{pedidoLocalDetail.pedidoLocal.valorTotal}">
+                        <h:outputText value="#{pedidoDeliveryDetail.pedidoDelivery.valorTotal}">
                             <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
                         </h:outputText>
                     </p:column>
@@ -84,7 +98,7 @@
                 <p:row>
                     <p:column colspan="2">
                         <h:form>
-                            <p:commandButton id="btnCancel" action="#{pedidoLocalDetail.cancel}" value="Cancel"
+                            <p:commandButton id="btnCancel" action="#{pedidoDeliveryDetail.cancel}" value="Cancel"
                                              icon="ui-icon-cancel" />
                         </h:form>
                     </p:column>
