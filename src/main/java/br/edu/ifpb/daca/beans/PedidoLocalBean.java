@@ -36,7 +36,7 @@ public class PedidoLocalBean extends AbstractBean implements Serializable {
 
     private void setPedidoLocalList() {
         try {
-            pedidos = pedidoService.getAllgetAllPedidoLocal();
+            pedidos = pedidoService.getAllPedidoLocal();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }

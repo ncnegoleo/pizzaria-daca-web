@@ -1,6 +1,5 @@
 package br.edu.ifpb.daca.dao;
 
-import br.edu.ifpb.daca.entities.ItensPedido;
 import br.edu.ifpb.daca.entities.Pedido;
 import br.edu.ifpb.daca.entities.PedidoDelivery;
 import br.edu.ifpb.daca.entities.PedidoLocal;

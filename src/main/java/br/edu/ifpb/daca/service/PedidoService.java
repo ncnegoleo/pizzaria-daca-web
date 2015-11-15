@@ -125,7 +125,7 @@ public class PedidoService implements Serializable {
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
-    public List<PedidoLocal> getAllgetAllPedidoLocal() throws DacaServiceException {
+    public List<PedidoLocal> getAllPedidoLocal() throws DacaServiceException {
         try {
             return pedidoDao.getAllPedidoLocal();
         } catch (DacaPersistenceException ex) {
@@ -140,7 +140,7 @@ public class PedidoService implements Serializable {
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
-    public List<PedidoDelivery> getAllgetAllPedidoDelivery() throws DacaServiceException {
+    public List<PedidoDelivery> getAllPedidoDelivery() throws DacaServiceException {
         try {
             return pedidoDao.getAllPedidoDelivery();
         } catch (DacaPersistenceException ex) {

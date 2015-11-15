@@ -36,7 +36,7 @@ public class PedidoDeliveryBean extends AbstractBean implements Serializable{
 
     private void setPedidoDeliveryList() {
         try {
-            pedidos = pedidoService.getAllgetAllPedidoDelivery();
+            pedidos = pedidoService.getAllPedidoDelivery();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }

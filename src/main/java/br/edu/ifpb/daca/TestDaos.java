@@ -14,6 +14,7 @@ import br.edu.ifpb.daca.service.SaborService;
 import br.edu.ifpb.daca.validation.DacaPersistenceException;
 import br.edu.ifpb.daca.validation.DacaServiceException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -45,14 +46,18 @@ public class TestDaos {
             Lanche lanche_2 = em.find(Lanche.class, 38705L);
             Lanche lanche_3 = em.find(Lanche.class, 38704L);
             
-            Cliente cliente = em.find(Cliente.class, 66051L);
+            //Cliente cliente = em.find(Cliente.class, 66051L);
+            Mesa mesa = em.find(Mesa.class, 38701L);
             
             its.add(new ItensPedido(lanche_1, 2, ""));
             its.add(new ItensPedido(lanche_2, 2, ""));
             its.add(new ItensPedido(lanche_3, 4, ""));
             
-            PedidoDelivery pd = new PedidoDelivery(new Date(), its, cliente);
+            Calendar cal = Calendar.getInstance();
+            cal.set(2015, 6, 10);
             
+            //PedidoDelivery pd = new PedidoDelivery(cal.getTime(), its, cliente);
+            PedidoLocal pd = new PedidoLocal(cal.getTime(), mesa);
             
             em.persist(pd);
             
