@@ -98,6 +98,22 @@ public class UsuarioService implements Serializable {
         }
     }
 
+    /**
+     * Retorna um usuario cadastrado pelo login;
+     *
+     * @param login
+     * @return Usuario.
+     * @throws br.edu.ifpb.daca.validation.DacaServiceException
+     */
+    @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
+    public Usuario getByUserName(String login) throws DacaServiceException {
+        try {
+            return usuarioDao.getByUserName(login);
+        } catch (DacaPersistenceException ex) {
+            throw new DacaServiceException(ex.getMessage(), ex);
+        }
+    }
+
     public void criptografarSenha(Usuario usuario) throws DacaServiceException {
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
     }

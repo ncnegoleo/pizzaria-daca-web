@@ -81,4 +81,19 @@ public class UsuarioDao extends DAO implements Persistible<Usuario, Long> {
         return resultado;
     }
 
+    public Usuario getByUserName(String login) throws DacaPersistenceException {
+        EntityManager em = getEntityManager();
+        Usuario resultado = null;
+        try {
+            TypedQuery<Usuario> query = em.createQuery(
+                    "SELECT u FROM Usuario_Entity u WHERE u.login = :login", Usuario.class);
+            query.setParameter("login", login);
+            resultado = query.getSingleResult();
+        } catch (PersistenceException pe) {
+            throw new DacaPersistenceException("Ocorreu algum problema em "
+                    + "recuperar o usuário", pe);
+        }
+        return resultado;
+    }
+
 }

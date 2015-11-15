@@ -65,7 +65,7 @@
         <web-resource-collection>
             <web-resource-name>Área não protegida</web-resource-name>
             <description />
-            <url-pattern>/paginas/*</url-pattern>
+            <url-pattern>/visit/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>HEAD</http-method>
