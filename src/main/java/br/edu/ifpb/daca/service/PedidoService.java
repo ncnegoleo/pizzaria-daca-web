@@ -94,7 +94,7 @@ public class PedidoService implements Serializable {
      * @throws br.edu.ifpb.daca.validation.DacaServiceException
      */
     @Transactional(rollbackOn = {DacaException.class}, value = Transactional.TxType.SUPPORTS)
-    public List<Pedido> getAl() throws DacaServiceException {
+    public List<Pedido> getAll() throws DacaServiceException {
         try {
             return pedidoDao.getAll();
         } catch (DacaPersistenceException ex) {

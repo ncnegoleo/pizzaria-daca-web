@@ -17,6 +17,8 @@ import javax.inject.Named;
 import org.primefaces.extensions.component.gchart.model.GChartModel;
 import org.primefaces.extensions.component.gchart.model.GChartModelBuilder;
 import org.primefaces.extensions.component.gchart.model.GChartType;
+import org.primefaces.extensions.model.timeline.TimelineEvent;
+import org.primefaces.extensions.model.timeline.TimelineModel;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.ChartSeries;
@@ -31,11 +33,9 @@ public class Dashboard extends AbstractBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private LineChartModel lineChartModel;
+    private TimelineModel timeLineModel;
     private List<Pedido> pedidos;
     private String selectedYear;
-    private Random random = new Random();
-    private int mushrooms = random.nextInt(10);
-    private int onions = random.nextInt(10);
     private GChartType chartType = GChartType.COLUMN;
     private GChartModel chartModel = null;
 
@@ -48,11 +48,12 @@ public class Dashboard extends AbstractBean implements Serializable {
         setPedidosList();
         createLineChart();
         createTodayBarChart();
+        setTimeLine();
     }
 
     private void setPedidosList() {
         try {
-            pedidos = pedidoService.getAl();
+            pedidos = pedidoService.getAll();
         } catch (DacaServiceException ex) {
             errorMessageReport(ex.getMessage());
         }
@@ -82,7 +83,7 @@ public class Dashboard extends AbstractBean implements Serializable {
 
         lineChartModel.setTitle("Apuração Anual");
         lineChartModel.setZoom(true);
-        lineChartModel.setLegendPosition("ne");
+        lineChartModel.setLegendPosition("");
 
         DateAxis dateAxis = new DateAxis("Data");
         dateAxis.setTickAngle(-50);
@@ -95,6 +96,22 @@ public class Dashboard extends AbstractBean implements Serializable {
         yAxis.setLabel("Valor R$");
 
         lineChartModel.getAxes().put(AxisType.X, dateAxis);
+    }
+
+    private void setTimeLine() {
+        timeLineModel = new TimelineModel();
+        String prexf = "";
+        for (Pedido p : pedidos) {
+            if(p instanceof PedidoLocal) {
+                prexf = "PL: ";
+            }else {
+                prexf = "PD: ";
+            }
+            timeLineModel.add(new TimelineEvent(
+                    prexf + p.getId().toString(),
+                    p.getDataHora())
+            );
+        }
     }
 
     private void createTodayBarChart() {
@@ -147,4 +164,7 @@ public class Dashboard extends AbstractBean implements Serializable {
         this.chartType = chartType;
     }
 
+    public TimelineModel getTimeLineModel() {
+        return timeLineModel;
+    }
 }

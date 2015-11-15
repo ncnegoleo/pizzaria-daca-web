@@ -80,7 +80,7 @@
     -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px !important;
     box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px !important;
     padding:0.45em !important;
-    margin-bottom:20px !important;
+    margin-bottom: 20px;
 }
 
 .ui-widget input:hover,

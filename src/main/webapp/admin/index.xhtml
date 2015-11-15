@@ -12,15 +12,39 @@
             Dashboard
         </ui:define>
         <ui:define name="content">
-            <p:fieldset>
+            <h:outputStylesheet library="css" name="form-style.css"/>
+
+            <p:fieldset legend="Apuração Anual">
                 <p:chart id="lineC" widgetVar="chart" type="line" model="#{dashboard.lineChartModel}" responsive="true" style="height:300px"/>
                 <p:commandButton type="button" value="Resetar Zoom" icon="ui-icon-cancel" onclick="PF('chart').resetZoom()"/>
                 <h:outputText value=" "/>
             </p:fieldset>
             <br/>
-            <p:fieldset style="width: 99% !important">
+            <br/>
+            <p:fieldset style="width: 98.7% !important" legend="Vendas do Dia">
                 <pe:gChart value="#{dashboard.chartModel}" title="Vendas Hoje">  
                 </pe:gChart>  
+            </p:fieldset>
+            <br/>
+            <br/>
+            <p:fieldset legend="Timeline Pedidos">
+                <pe:timeline id="timeline" 
+                             value="#{dashboard.timeLineModel}" height="250px"  
+                             selectable="true"  
+                             zoomable="true"  
+                             moveable="true"  
+                             stackEvents="true"  
+                             axisOnTop="false"               
+                             eventStyle="box"  
+                             showCurrentTime="true"  
+                             showNavigation="true"
+                             locale="pt_BR"
+                             responsive="true"/>
+                <br/>
+                <ul>
+                    <li><h:outputText value="PD = Pedido Delivery"/></li>
+                    <li><h:outputText value="PL = Pedido Local"/></li>
+                </ul>
             </p:fieldset>
         </ui:define>
     </ui:composition>

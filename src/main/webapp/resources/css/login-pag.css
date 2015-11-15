@@ -1,0 +1,27 @@
+html, body {
+    padding-top: 5px;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background: #33383E;
+}
+
+.img-logo {
+    width: 350px;
+    height: auto;
+}
+
+.ui-widget input, .ui-widget textarea {
+    margin: 0px !important;
+}
+
+.ui-panelgrid>*>tr, .ui-panelgrid .ui-panelgrid-cell {
+    border: none !important;
+}

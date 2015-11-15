@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,10 @@ public class Usuario implements Serializable {
     
     @Column(nullable = false)
     private String nome;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Grupo grupo;
     
     public Long getId() {
         return id;
@@ -60,13 +66,22 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }
 
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.login);
-        hash = 79 * hash + Objects.hashCode(this.senha);
-        hash = 79 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.login);
+        hash = 29 * hash + Objects.hashCode(this.senha);
+        hash = 29 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + Objects.hashCode(this.grupo);
         return hash;
     }
 
@@ -91,11 +106,16 @@ public class Usuario implements Serializable {
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
+        if (this.grupo != other.grupo) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", login=" + login + ", senha=" + senha + ", nome=" + nome + '}';
-    }   
+        return "Usuario{" + "id=" + id + ", login=" + login + ", senha=" 
+                + senha + ", nome=" + nome + ", grupo=" + grupo + '}';
+    }
+    
 }
