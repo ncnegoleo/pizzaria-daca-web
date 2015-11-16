@@ -118,6 +118,14 @@ public class UsuarioService implements Serializable {
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
     }
 
+    public boolean comparePassword(String oldPass, String newPass) 
+            throws DacaServiceException {
+        if(oldPass.equals(criptografarSenha(newPass))) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Método que criptografa uma dada senha usando o método hash SHA-256.
      *

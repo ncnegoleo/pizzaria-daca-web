@@ -41,5 +41,18 @@ ui-panelgrid-cell ui-widget-header {
 
 .ui-panelgrid .ui-panelgrid-cell {
     padding-right: 0;
-    padding-left: 5px;
+    /* padding-left: 5px; */
+}
+
+.alt-senha-link {
+    color: #1784C7 !important;
+    font-weight: bold;
+}
+
+.alt-senha-link:hover {
+    text-decoration: underline;
+}
+
+.ui-selectonemenu-label {
+    margin-top: 4px;
 }
